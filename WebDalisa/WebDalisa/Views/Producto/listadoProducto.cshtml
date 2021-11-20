@@ -1,0 +1,120 @@
+﻿@model IEnumerable<WebDalisa.Models.ProductoDTO>
+
+@using WebDalisa.Models
+
+@Scripts.Render("~/Content/Index.js")
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
+<script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap" rel="stylesheet">
+<style>
+    .titulo {
+        text-align: center;
+        color: white;
+        font-size: 5em;
+        transition: 0.5s;
+        color: rgb(20, 125, 196);
+        font-family: 'Oswald', sans-serif;
+        text-shadow: 0 1px 0 #ccc, 0 2px 0 #ccc, 0 3px 0 #ccc, 0 4px 0 #ccc, 0 5px 0 #ccc, 0 6px 0 #ccc, 0 7px 0 #ccc, 0 8px 0 #ccc, 0 9px 0 #ccc, 0 10px 0 #ccc, 0 11px 0 #ccc, 0 12px 0 #ccc, 0 20px 30px rgba(0, 0, 0, 0.5);
+    }
+</style>
+<body id="body" class="bg-fondo">
+    <div class="container-fluid bg-fondo">
+        <div class="row">
+            <div class="col-1  col-md-1-1">
+                <div id="nav" class="sidebar close">
+                </div>
+            </div>
+            <div class="col-11   col-md-11-1  ps-5 ps-md-0">
+                <section class="home-section">
+                    <div class="container-fluid ">
+                        <div class="row">
+                            <div class="col-12 pb-2 ">
+                                <div style="width: 4%; ">
+                                    <i class=" bx bx-menu" role="button" style="font-size:50px;"></i>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 pb-3">
+                                <h1 class="text-center titulo">Producto Dalisa</h1>
+                            </div>
+                            <div class="col-12">
+                                <table class="table table-striped w-100" id="myTable">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th scope="col">#</th>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Descripcion</th>
+                                            <th scope="col">Categoria</th>
+                                            <th scope="col">Precio</th>
+                                            <th scope="col">Cantidad</th>
+                                            <th scope="col">Punto</th>
+                                            <th scope="col">Fecha Registro</th>
+                                            <th scope="col">Opciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td scope="row">
+                                                    @Html.DisplayFor(modelItem => item.codigoProducto)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.nombre)
+                                                </td>
+                                                <td class="w-10">
+                                                    <textarea class="p-2" disabled="disabled" style="max-height: 200px; border: none; min-height: 80px;">
+											 @Html.DisplayFor(modelItem => item.descripcion)	
+                                                </textarea>
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.marca)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.precio)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.cantidad)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.punto)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.fecha)
+                                                </td>
+                                                <!-- <td>
+                                                 Html.DisplayFor(modelItem => item.foto)
+                                                </td>-->
+                                                <td>
+                                                    @Html.ActionLink("Edit", "Editar", new { /* id=item.PrimaryKey */ }, new { @style = "btn btn-warning" })
+                                                    @Html.ActionLink("Delete", "Eliminar", new { /* id=item.PrimaryKey */ }, new { @style = "btn btn-danger" })
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="subir">
+                            <span>
+                                <i class='bx bxs-to-top'></i>
+                            </span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#nav").load("http://localhost:64395/Usuario/Menu");
+            $('#myTable').DataTable({
+                "aLengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
+                "iDisplayLength": 5
+            });
+        });
+    </script>
+</body>

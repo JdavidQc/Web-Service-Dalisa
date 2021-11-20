@@ -1,0 +1,157 @@
+﻿@using WebDalisa.Models
+
+
+@{string rol = null; }
+@if (Session["rol"] != null)
+{
+    rol = (string)Session["rol"];
+
+}
+<div class="logo-details">
+    <i class='bx bxl-c-plus-plus'></i>
+    <span class="logo_name w-100 position-relative">
+        Dalisa <span class="position-absolute top-50 end-0 translate-middle-y badge"><i class=" bx bx-x ps-4" role="button" style="font-size:50px;"></i></span>
+    </span>
+</div>
+<ul class="nav-links">
+    @if (rol.Equals("E"))
+    {
+        <li>
+            <a href="#">
+                <i class='bx bx-grid-alt'></i>
+                <span class="link_name Dashboard">Dashboard</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link_name Dashboard" href="#">Dashboard</a></li>
+            </ul>
+        </li>
+        <li>
+            <div class="iocn-link">
+                <a href="#">
+                    <i class='bx bxs-box'></i>
+                    <span class="link_name">  Productos</span>
+                </a>
+                <i class='bx bxs-chevron-down arrow'></i>
+            </div>
+            <ul class="sub-menu">
+                <li><a class="link_name">Productos</a></li>
+                <li><a id="Productos" href="http://localhost:64395/Producto/listadoProducto"> Lista Productos</a></li>
+                <li><a href="#"> Nuevo Productos</a></li>
+                <li><a href="#"> Reporte Productos</a></li>
+
+            </ul>
+        </li>
+        <li>
+            <div class="iocn-link">
+                <a href="#">
+                    <i class='bx bxs-envelope-open'></i>
+                    <span class="link_name">Solicitud</span>
+                </a>
+                <i class='bx bxs-chevron-down arrow'></i>
+            </div>
+            <ul class="sub-menu">
+                <li><a class="link_name">Solicitud</a></li>
+                <li><a id="PagoSocio" href="#">Pago Socio</a></li>
+                <li><a id="idPedido" href="#">Pago Pedido</a></li>
+            </ul>
+        </li>
+    }
+    else if (rol.Equals("S"))
+    {
+        <li>
+            <a href="#">
+                <i class='bx bx-grid-alt'></i>
+                <span class="link_name Dashboard">Dashboard</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link_name Dashboard" href="#">Dashboard</a></li>
+            </ul>
+        </li>
+        <li>
+            <div class="iocn-link">
+                <a href="#">
+                    <i class='bx bx-collection'></i>
+                    <span class="link_name">Mi Organiz..</span>
+                </a>
+                <i class='bx bxs-chevron-down arrow'></i>
+            </div>
+            <ul class="sub-menu">
+                <li><a class="link_name">Mi Organizacion</a></li>
+                <li><a id="afiliar" href="#">Nuevo</a></li>
+                <li><a href="#">Geneologia</a></li>
+                <li> <a id="pizarron" href="#">Pizarron</a></li>
+            </ul>
+        </li>
+        <li>
+            <div class="iocn-link">
+                <a href="#">
+                    <i class='bx bx-cart'></i>
+                    <span class="link_name Producto">Compras</span>
+                </a>
+                <i class='bx bxs-chevron-down arrow'></i>
+            </div>
+            <ul class="sub-menu">
+                <li><a class="link_name Producto" href="#">Comprar</a></li>
+                <li><a href="#">Mis Compras</a></li>
+                <li><a href="#">Consolidar pedidos</a></li>
+                <li><a href="#">Mis Pedidos</a></li>
+            </ul>
+        </li>
+        <li>
+            <div class="iocn-link">
+                <a href="#">
+                    <i class='bx bx-history'></i>
+                    <span class="link_name">Empresa</span>
+                </a>
+                <i class='bx bxs-chevron-down arrow'></i>
+            </div>
+            <ul class="sub-menu">
+                <li><a class="link_name">Setting</a></li>
+                <li><a href="#">Soporte</a></li>
+                <li><a href="#">Agenda</a></li>
+                <li><a href="#">Mensaje</a></li>
+                <li><a id="Tranferencia" href="#">Tranferencia</a></li>
+                <li><a id="cobro" href="#">Cobro monedero</a></li>
+            </ul>
+        </li>
+        <li>
+            <div class="iocn-link">
+                <a href="#">
+                    <i class='bx bx-cog'></i>
+                    <span class="link_name ">Setting</span>
+                </a>
+                <i class='bx bxs-chevron-down arrow'></i>
+            </div>
+            <ul class="sub-menu">
+                <li><a class="link_name " href="#">Setting</a></li>
+                <li><a id="Setting" href="Misdatos">Mis Datos</a></li>
+                <li><a id="Password" href="Password">Password</a></li>
+            </ul>
+        </li>
+    }
+
+    <li>
+        <div class="profile-details">
+            <div class="profile-content">
+                @*<!--th:src="@{../img/profile.jpg}"-->*@
+                <img role="button" src="data:image/svg+xml;base64,PHN2ZyBpZD0iZmxhdCIgaGVpZ2h0PSI1MTIiIHZpZXdCb3g9IjAgMCAxMjggMTI4IiB3aWR0aD0iNTEyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Im04Ni4zNTUgMTIyLjA0NHYtNDUuMzM4bC03LjM1NC0zLjQ0NS0xLjk5Ni0xMC42MDFoLTI2LjAxbC0xLjk5NiAxMC42MDEtNy4xMTcgMy4zMzR2NDUuNDQ5eiIgZmlsbD0iI2UyYjQ4YSIvPjxwYXRoIGQ9Im0xMTYuOTYgMTI3LTEuOS0yNC4yODZhMjIuNDU3IDIyLjQ1NyAwIDAgMCAtMTIuODYtMTguNTg2bC0yMC40MS05LjU2MnY1LjkwNmgtMi4zMjZ2My4xaC0zNC4yMzl2LTguNTQzbC0xOS40MjUgOS4wOTlhMjIuNDU3IDIyLjQ1NyAwIDAgMCAtMTIuODYzIDE4LjU4NmwtMS44OTcgMjQuMjg2eiIgZmlsbD0iI2JhYzJkMyIvPjxwYXRoIGQ9Im02Ny4wMzcgODMuNjRoLTkuNzc2bC0xLjg2MiA0LjM0MSA1LjYxMSA3LjE0MS0zLjI2MiAxNS42NTggNi4yNDcgMTMuNTM1IDYuOTk5LTE0LjU1OC0yLjkzMi0xNC45MjcgNC40NDMtNy4zMDV6IiBmaWxsPSIjZGEyYTQ3Ii8+PHBhdGggZD0ibTExNS4wNjEgMTAyLjcxNGEyMi40NTcgMjIuNDU3IDAgMCAwIC0xMi44NjEtMTguNTg2bC0xOC42LTguNzE2Yy0xLjUxNyA4LjYzOC01LjExOSAxNi41NTQtOS4wMzMgMjQuMzUtMS44MTUgMy42MTYtMy41MTYgNy4yMTktNS4xMTcgMTAuOTI3LS44OTMgMi4wNTUtNS40NSAxNC4wNjItNS40NSAxNC4wNjJzLTcuMzg4LTE4LjM5LTguNzMzLTIxLjg3NmMtMS44MjMtNC43MjgtMy4yMjYtOS42NDgtNS42NDItMTQuMTIxLS40MTQtLjc2Ny0uODUxLTEuNTIxLTEuMy0yLjI3LTQuMTEtMS42MTQtNi4yMjMtNS4xLTYuMTQ1LTEwLjAzMWwtMTYuMzggNy42NzVhMjIuNDU3IDIyLjQ1NyAwIDAgMCAtMTIuODYzIDE4LjU4NmwtMS44OTcgMjQuMjg2aDEwNS45MnoiIGZpbGw9IiM3MDc1ODMiLz48cGF0aCBkPSJtMTE1LjA2MSAxMDIuNzE0YTIyLjQ1NyAyMi40NTcgMCAwIDAgLTEyLjg2MS0xOC41ODZsLTE4LjYtOC43MTZjLTEuNTE3IDguNjM4LTUuMTE5IDE2LjU1NC05LjAzMyAyNC4zNS0xLjgxNSAzLjYxNi0zLjUxNiA3LjIxOS01LjExNyAxMC45MjctLjg5MyAyLjA1NS01LjQ1IDE0LjA2Mi01LjQ1IDE0LjA2MnMtNy4zODgtMTguMzktOC43MzMtMjEuODc2Yy0xLjgyMy00LjcyOC0zLjIyNi05LjY0OC01LjY0Mi0xNC4xMjEtLjQxNC0uNzY3LS44NTEtMS41MjEtMS4zLTIuMjctNC4xMS0xLjYxNC02LjIyMy01LjEtNi4xNDUtMTAuMDMxbC0xNi4zOCA3LjY3NWEyMi40NTcgMjIuNDU3IDAgMCAwIC0xMi44NjMgMTguNTg2bC0xLjg5NyAyNC4yODZoMTA1LjkyeiIgZmlsbD0iIzM4NDg2OCIvPjxwYXRoIGQ9Im0xMTYuOTYgMTI3aC0xNC4zNGwtMS45LTI0LjI5YTIyLjQ2OSAyMi40NjkgMCAwIDAgLTEyLjg3LTE4LjU4bC01LjY3LTIuNjZhNTcuOTkzIDU3Ljk5MyAwIDAgMCAxLjQxLTYuMDZsMTguNjEgOC43MmEyMi40NTkgMjIuNDU5IDAgMCAxIDEyLjg2IDE4LjU4eiIgZmlsbD0iIzJmM2E1YSIvPjxlbGxpcHNlIGN4PSI4Ny43MzEiIGN5PSI0Ny45MTciIGZpbGw9IiNlMmI0OGEiIHJ4PSI4LjQzIiByeT0iNC43MTciIHRyYW5zZm9ybT0ibWF0cml4KC4yMjggLS45NzQgLjk3NCAuMjI4IDIxLjA4MSAxMjIuNDE4KSIvPjxlbGxpcHNlIGN4PSI0MC4wNzQiIGN5PSI0Ny45MTciIGZpbGw9IiNlMmI0OGEiIHJ4PSI0LjcxNyIgcnk9IjguNDMiIHRyYW5zZm9ybT0ibWF0cml4KC45NzQgLS4yMjggLjIyOCAuOTc0IC05Ljg2NiAxMC4zOTUpIi8+PGVsbGlwc2UgY3g9IjYzLjkwMyIgY3k9IjM4Ljg5OCIgZmlsbD0iI2YwYzE5MSIgcng9IjIzLjgyOSIgcnk9IjMyLjg0MyIvPjxwYXRoIGQ9Im04Ni4yMzcgNTAuMjI4czguNDE1LTE1LjAzNSA2LjU5Mi0yNi45NTktOS44NTYtMTUuNjg4LTE0LjYyOS0xNS42ODhjMCAwLTYuNDQyLTkuNTM5LTIyLjM2MS01LjY0OHMtMjIuMzIgMjEuMzcyLTE5LjMwOCAzMi40IDUuMDIgMTYuMDk0IDUuMDIgMTYuMDk0LTIuMDA4LTE0LjEuMjUxLTIxLjg4NSA5LjAzNy0xMy45MzIgMTEuNjczLTExLjggMTkuNDU0IDEuNDI1IDIyLjIxNS0zLjNhMTcuMDE4IDE3LjAxOCAwIDAgMSA2Ljc1MyAxMS4wODZjLjkgNy4xNTQgNC45MTkgMTEuNTQ3IDQuNTQzIDE2LjY5MnMtLjc0OSA5LjAwOC0uNzQ5IDkuMDA4eiIgZmlsbD0iIzJmM2E1YSIvPjxwYXRoIGQ9Im03OC4zMTUgNjkuNTgzLTE0LjMxNSAxMy45ODggMTIuNzc4IDguNzgxIDUuOTgtMTcuMzUxeiIgZmlsbD0iI2Q5ZTJlOSIvPjxwYXRoIGQ9Im00NS4yNDIgNzUuMDAxIDYuNDc4IDE2Ljk0NiAxMi4yOC04LjM3Ni0xNC4zMTUtMTMuOTg4eiIgZmlsbD0iI2Q5ZTJlOSIvPjxwYXRoIGQ9Im04Ni40ODQgNzYuNzY2LTguMTY5LTcuMTgzLS4wMTctLjAxN3MtLjE0OSAyMS40Ni0xNC4zIDU0Ljc0OWMtMTQuMTU0LTMzLjI4OS0xNC4zLTU0Ljc0OS0xNC4zLTU0Ljc0OWwtLjAxNy4wMTctOC4xNjggNy4xODMtMS40MzkgMTIuMTQzIDYuNzczLTEuMDgzLTUuMDc5IDcuN2MyLjk0NSA3LjE3NCAyMi4yMzIgMjkuNTc0IDIyLjIzMiAyOS41NzQgMy4wMzUtMy4zNTEgMTkuNzQyLTIyLjY5MyAyMi4zNDMtMjkuMDMzbC01LjE5NS04LjI0MSA3LjU4MS4yMTZ6IiBmaWxsPSIjNDM1NjdjIi8+PC9zdmc+" alt="profileImg">
+            </div>
+            <div class="name-job">
+                @if (Session["use"] != null)
+                {
+                    UsuarioDTO datos = (UsuarioDTO)Session["use"];
+
+                    <h4 class="profile_name" style="font-size: 12px;">@datos.nombreUse</h4>
+                    <h4 class="profile_name" style="font-size: 12px;">@datos.apellidoUse</h4>
+                }
+            </div>
+            <i data-bs-toggle="modal" data-bs-target="#exampleModal" class='bx bx-log-out'></i>
+            <ul class="sub-menu m-0 p-0 mt-3">
+                <a><i class=' link_name  bx bx-log-out ' data-bs-toggle="modal" data-bs-target="#exampleModal" style="font-size: 30px"></i></a>
+            </ul>
+        </div>
+    </li>
+</ul>
+
+
+

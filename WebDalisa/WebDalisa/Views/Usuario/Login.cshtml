@@ -1,0 +1,97 @@
+﻿@model WebDalisa.Models.UsuarioDTO
+
+
+<style>
+    body {
+        height: 100vh;
+        background-color: #707e97;
+        background: -webkit-linear-gradient(#707e97, #ffff00b9);
+        background: -o-linear-gradient(#707e97, #ffff00b9);
+        background: -moz-linear-gradient(#707e97, #ffff00b9);
+        background: linear-gradient(#707e97, #ffff00b9);
+    }
+
+    h1 {
+        font-family: "Pacifico", cursive;
+        color: gray;
+    }
+
+    #email {
+        color: rgb(133, 133, 133);
+        text-decoration: none;
+    }
+
+        #email:hover {
+            color: #000000;
+        }
+
+
+
+</style>
+
+<div class="container-fluid">
+    <br />
+    <br />
+    <div class="card m-auto rounded" style="width: 25rem; border: 2px solid white">
+        <div style="background: #206f7b; border-bottom: 0px; padding: 0px">
+            <img src="data:image/webp;base64,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"
+                 class="w-100" alt="..." />
+        </div>
+        <div class="card-body w-75 m-auto">
+            <h1 class="card-title pb-4 text-center">
+                D A L I S A
+            </h1> <br>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="ps-4">
+                    <div class="row pb-2">
+                        <div class="col-2">
+                            <img src="data:image/webp;base64,UklGRiIDAABXRUJQVlA4TBUDAAAvGAAGEDcGoZEkR1LsgTgoxx+SfzvT+YYEhEaSHEmxB+KgHH9I3v3PdEJoJMmRFHsgDsrxh+Td/0wn3Nq2VStHvrsbbqHWQAlE1MGgI+ogI4fM3d3h2jmnDAAQCAisAAb+T0DkwWAg6Hq9fn79/bW+/v54rfU8M729d3PvzdXa9///PmytVa90723Hccyttfb23tnjOFY/f79nONjMfGGyeqjSzEzvvQl8Op12Pr7fjepnZnIzU8T29///ZtVEvzqZGUO7+qhCVa4U31XA4sxkcVcRcGZaFaO01lIIeuCZseoNYWYWKqx+K1xrZZGtAAqruAJIhRWB8YYEqzoV4KOqIFMBfJUFVQCFVoqASgUwGFwVIXDoIVO9wGAQ/FYIAsJXFdwgVoBUET6qMh7xWzVBVRl3cJCqWR3svX+r0d57t2ogi6PqCUsYVhU8QCGVIQ9EFodwM5NQQLVSRDhIVUSjQlxVDEZhZi4gkJnRqjIzEW8z06s+P38/93q9Itzn75f9+vvDj++XEC6Xy9b5fF4/joMgUbJt03bWs207tu282M/eyT7JWcG8vje2bdu27R/beL8Q0f8JIPPnS2/OPbv0jXr99MT/gAfewL+T9+3eHfcL6TLYlWLD4fcWd7f2MMzcs/Oi4fFmCcAD2S7hASC3PNB83CEBeOTcIUXD50gPALHtExFFH+0BADklk4iyJgsA6DkURfRoHQPgqWmkpk9TeP1d6jgiAKC9L+kHCQAQp6I+7HIARBqqDOUrPACc7V/f+BiAp6XOUNOicPj1HYbqTorXJMxwoXqun3Y0ntaKBCJKrG6D1j1zxdXA0zSyz+D+Yxo9Or79MMI6t2Hx/CXNrGPfs0+bHMVdPn1AyYjigTObWHFC7/8cE4BHzqpMIjW5arbjAeSBH3RjDcMZlUHmrHEOeO1lou97BS/KIdv8hRAHfxLRvWBDP7Kvbd74ktQLq4YmW6UOW32T9Lc6xxfEG+IKJ668QeYnu+dNKMvNS8nOLx27YM8rsv19bX/X0vrR9cu6953/Rb2M/fLi6tm/z9/GkBEA"
+                               alt="" />
+                        </div>
+                        <div class="col-10">
+                            <input type="text" name="use" class="form-control" placeholder="User / Usuario"
+                                   id="exampleInputUsuario" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <img src="data:image/webp;base64,UklGRmgCAABXRUJQVlA4TFwCAAAvGAAGELfkoI0kR3Jd+Pxonj+zvx0aDtpIciTXhc+P5vkz+9tx0EaSI7kufH40z5/Z347j2rZTJXnRr7hDG8womRocCmAxd3e3WAABA36/H3y/X/d8PslxHOTxeGgYhLfbzW3bZhCc50nxqFjlb9sG27Zlqjf2lUINAn5FEW7b9qgMBDwwxEhWGKuK4w6LDRqIq1tl8Ko4KAIEyIIhW3lY44ZjhUHxgsUfqvrhhjok0sghqjAADAKyogBIRJCglYMDwRsGd/ygoWEwmRkAnZkt7FoLQaEE/7quOXZVC4uZsTOz+P//9vv9fmHgYOFg4KChKgAgBgauEBw0dIUB4BWqUIVAKlOh67rGGM1Me62FkEUO3bWWQmlmrrD4zozYtm2IZuWqqAJAtG3bdHNq201S20iN1FZOaqRWVPee6r1b2/jhl3tfPyGi/xMA4rCNvDdLfhTo9i/9PkQH2n4ronQkrJLKuapyVe2KkfJZU8nd3f7Y1jlM3Bwok7hPexm+AADGATpKl2lWlVrwnnPE7TJLl06DIHqC9wZLzN7sbAri/24GIyWebn++BEF3t3PbojjL2/vLh/D57TP2yotfw8H52fnFqfeL87Pz3YVQjclFqNfBizQFCurndk0m/ceigBERIp0oDmQKkQTbr2/pI8dya5WHDTWW9TORUgiQfDQVDmC+LgZIHROpTQBJrplQgOrLEoAUq4hNZhvm6ajSWD6uTOeaekiEbNRD6GA25kBmHSGUQIcDEZE5ENHhQEEWoX7eoUk7Zrocl3WarRqnQnpXIjQQsH7/Kv/wGQIA"
+                               alt="" />
+                        </div>
+                        <div class="col-10">
+                            <input type="password" name="pass" class="form-control" placeholder="Password / Contrasena"
+                                   id="exampleInputPassword" />
+                        </div>
+                    </div>
+                    <br />
+                </div><br>
+                <div class="d-grid gap-2 col-11 ps-4">
+                    <input type="submit" value="Ingresar" style="background: #206f7b; border-color: #206f7b" class="btn  btn-primary" />
+
+
+                    <!--           <button type="submit " style="background:#3b5998;" class="btn btn-primary"><img
+                        src="data:image/webp;base64,UklGRrwAAABXRUJQVlA4TK8AAAAvE8AEEAehqJEk5fzrvB8zz4wNtW0kKdd/kZd+xgy7q7BtI6X7D/vM0AgEkvydZjskJkwSEvgmQRLARKx5EUZiz0smRiCx55XjcNYDoNeFBL5ZD9778A2ACxVg7353P4AZU2AYyXaSwyEJ7vrTf504FBDR/wmwcqOVL25t4nrqSgUQXVgcCFR2YYB4las9GLkjvVLkGvw8r0+F7Je3NKemsQM9jvMpkR5Sufxn9g4LAA=="
+                        alt="">FACEBOOK LOGIN</button>-->
+                </div>}
+            <br />
+            <div class="col-12">
+                <p class="text-center" style="font-size: 14px">
+                    <a id="email" href="RecuperarCuenta.html">Recover Password-Recuperar Contraseña</a>
+                </p>
+            </div>
+        </div><br>
+        <div style="background: #e5e5e5">
+            <p class="pt-3 pe-3" style="text-align: right; color: #b3b0b0">
+                Operated by Netzen
+            </p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
