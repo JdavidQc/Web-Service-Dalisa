@@ -1,7 +1,14 @@
 ﻿@using WebDalisa.Models
 
 @Scripts.Render("~/Content/Index.js")
+<script src="https://cdn.jsdelivr.net/npm/color-calendar/dist/bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/color-calendar/dist/css/theme-basic.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/color-calendar/dist/css/theme-glass.css" />
+<script src="https://cdn.jsdelivr.net/npm/color-calendar/dist/bundle.min.js"></script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
 
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+@Scripts.Render("~/Scripts/circle.js")
 <body id="body" class="bg-fondo">
     <div class="container-fluid bg-fondo">
         <div class="row">
@@ -19,7 +26,7 @@
                                 </div>
                             </div>
                             <!-- SECCION 1 Y SECCION 2-->
-                            <div class="col-12">
+                            <div class="col-11 m-auto">
                                 <div class="row">
                                     <!-- DATOS DE SU COMPRA Y NOMBRE USUARIO:SECCION 1 -->
                                     <div class="col-12 col-sm-4">
@@ -33,11 +40,14 @@
                                                                      src="data:image/svg+xml;base64,PHN2ZyBpZD0iZmxhdCIgaGVpZ2h0PSI1MTIiIHZpZXdCb3g9IjAgMCAxMjggMTI4IiB3aWR0aD0iNTEyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Im04Ni4zNTUgMTIyLjA0NHYtNDUuMzM4bC03LjM1NC0zLjQ0NS0xLjk5Ni0xMC42MDFoLTI2LjAxbC0xLjk5NiAxMC42MDEtNy4xMTcgMy4zMzR2NDUuNDQ5eiIgZmlsbD0iI2UyYjQ4YSIvPjxwYXRoIGQ9Im0xMTYuOTYgMTI3LTEuOS0yNC4yODZhMjIuNDU3IDIyLjQ1NyAwIDAgMCAtMTIuODYtMTguNTg2bC0yMC40MS05LjU2MnY1LjkwNmgtMi4zMjZ2My4xaC0zNC4yMzl2LTguNTQzbC0xOS40MjUgOS4wOTlhMjIuNDU3IDIyLjQ1NyAwIDAgMCAtMTIuODYzIDE4LjU4NmwtMS44OTcgMjQuMjg2eiIgZmlsbD0iI2JhYzJkMyIvPjxwYXRoIGQ9Im02Ny4wMzcgODMuNjRoLTkuNzc2bC0xLjg2MiA0LjM0MSA1LjYxMSA3LjE0MS0zLjI2MiAxNS42NTggNi4yNDcgMTMuNTM1IDYuOTk5LTE0LjU1OC0yLjkzMi0xNC45MjcgNC40NDMtNy4zMDV6IiBmaWxsPSIjZGEyYTQ3Ii8+PHBhdGggZD0ibTExNS4wNjEgMTAyLjcxNGEyMi40NTcgMjIuNDU3IDAgMCAwIC0xMi44NjEtMTguNTg2bC0xOC42LTguNzE2Yy0xLjUxNyA4LjYzOC01LjExOSAxNi41NTQtOS4wMzMgMjQuMzUtMS44MTUgMy42MTYtMy41MTYgNy4yMTktNS4xMTcgMTAuOTI3LS44OTMgMi4wNTUtNS40NSAxNC4wNjItNS40NSAxNC4wNjJzLTcuMzg4LTE4LjM5LTguNzMzLTIxLjg3NmMtMS44MjMtNC43MjgtMy4yMjYtOS42NDgtNS42NDItMTQuMTIxLS40MTQtLjc2Ny0uODUxLTEuNTIxLTEuMy0yLjI3LTQuMTEtMS42MTQtNi4yMjMtNS4xLTYuMTQ1LTEwLjAzMWwtMTYuMzggNy42NzVhMjIuNDU3IDIyLjQ1NyAwIDAgMCAtMTIuODYzIDE4LjU4NmwtMS44OTcgMjQuMjg2aDEwNS45MnoiIGZpbGw9IiM3MDc1ODMiLz48cGF0aCBkPSJtMTE1LjA2MSAxMDIuNzE0YTIyLjQ1NyAyMi40NTcgMCAwIDAgLTEyLjg2MS0xOC41ODZsLTE4LjYtOC43MTZjLTEuNTE3IDguNjM4LTUuMTE5IDE2LjU1NC05LjAzMyAyNC4zNS0xLjgxNSAzLjYxNi0zLjUxNiA3LjIxOS01LjExNyAxMC45MjctLjg5MyAyLjA1NS01LjQ1IDE0LjA2Mi01LjQ1IDE0LjA2MnMtNy4zODgtMTguMzktOC43MzMtMjEuODc2Yy0xLjgyMy00LjcyOC0zLjIyNi05LjY0OC01LjY0Mi0xNC4xMjEtLjQxNC0uNzY3LS44NTEtMS41MjEtMS4zLTIuMjctNC4xMS0xLjYxNC02LjIyMy01LjEtNi4xNDUtMTAuMDMxbC0xNi4zOCA3LjY3NWEyMi40NTcgMjIuNDU3IDAgMCAwIC0xMi44NjMgMTguNTg2bC0xLjg5NyAyNC4yODZoMTA1LjkyeiIgZmlsbD0iIzM4NDg2OCIvPjxwYXRoIGQ9Im0xMTYuOTYgMTI3aC0xNC4zNGwtMS45LTI0LjI5YTIyLjQ2OSAyMi40NjkgMCAwIDAgLTEyLjg3LTE4LjU4bC01LjY3LTIuNjZhNTcuOTkzIDU3Ljk5MyAwIDAgMCAxLjQxLTYuMDZsMTguNjEgOC43MmEyMi40NTkgMjIuNDU5IDAgMCAxIDEyLjg2IDE4LjU4eiIgZmlsbD0iIzJmM2E1YSIvPjxlbGxpcHNlIGN4PSI4Ny43MzEiIGN5PSI0Ny45MTciIGZpbGw9IiNlMmI0OGEiIHJ4PSI4LjQzIiByeT0iNC43MTciIHRyYW5zZm9ybT0ibWF0cml4KC4yMjggLS45NzQgLjk3NCAuMjI4IDIxLjA4MSAxMjIuNDE4KSIvPjxlbGxpcHNlIGN4PSI0MC4wNzQiIGN5PSI0Ny45MTciIGZpbGw9IiNlMmI0OGEiIHJ4PSI0LjcxNyIgcnk9IjguNDMiIHRyYW5zZm9ybT0ibWF0cml4KC45NzQgLS4yMjggLjIyOCAuOTc0IC05Ljg2NiAxMC4zOTUpIi8+PGVsbGlwc2UgY3g9IjYzLjkwMyIgY3k9IjM4Ljg5OCIgZmlsbD0iI2YwYzE5MSIgcng9IjIzLjgyOSIgcnk9IjMyLjg0MyIvPjxwYXRoIGQ9Im04Ni4yMzcgNTAuMjI4czguNDE1LTE1LjAzNSA2LjU5Mi0yNi45NTktOS44NTYtMTUuNjg4LTE0LjYyOS0xNS42ODhjMCAwLTYuNDQyLTkuNTM5LTIyLjM2MS01LjY0OHMtMjIuMzIgMjEuMzcyLTE5LjMwOCAzMi40IDUuMDIgMTYuMDk0IDUuMDIgMTYuMDk0LTIuMDA4LTE0LjEuMjUxLTIxLjg4NSA5LjAzNy0xMy45MzIgMTEuNjczLTExLjggMTkuNDU0IDEuNDI1IDIyLjIxNS0zLjNhMTcuMDE4IDE3LjAxOCAwIDAgMSA2Ljc1MyAxMS4wODZjLjkgNy4xNTQgNC45MTkgMTEuNTQ3IDQuNTQzIDE2LjY5MnMtLjc0OSA5LjAwOC0uNzQ5IDkuMDA4eiIgZmlsbD0iIzJmM2E1YSIvPjxwYXRoIGQ9Im03OC4zMTUgNjkuNTgzLTE0LjMxNSAxMy45ODggMTIuNzc4IDguNzgxIDUuOTgtMTcuMzUxeiIgZmlsbD0iI2Q5ZTJlOSIvPjxwYXRoIGQ9Im00NS4yNDIgNzUuMDAxIDYuNDc4IDE2Ljk0NiAxMi4yOC04LjM3Ni0xNC4zMTUtMTMuOTg4eiIgZmlsbD0iI2Q5ZTJlOSIvPjxwYXRoIGQ9Im04Ni40ODQgNzYuNzY2LTguMTY5LTcuMTgzLS4wMTctLjAxN3MtLjE0OSAyMS40Ni0xNC4zIDU0Ljc0OWMtMTQuMTU0LTMzLjI4OS0xNC4zLTU0Ljc0OS0xNC4zLTU0Ljc0OWwtLjAxNy4wMTctOC4xNjggNy4xODMtMS40MzkgMTIuMTQzIDYuNzczLTEuMDgzLTUuMDc5IDcuN2MyLjk0NSA3LjE3NCAyMi4yMzIgMjkuNTc0IDIyLjIzMiAyOS41NzQgMy4wMzUtMy4zNTEgMTkuNzQyLTIyLjY5MyAyMi4zNDMtMjkuMDMzbC01LjE5NS04LjI0MSA3LjU4MS4yMTZ6IiBmaWxsPSIjNDM1NjdjIi8+PC9zdmc+" />
                                                             </div>
                                                             <div class="p-0  pt-3 col-8 col-sm-12 col-md-8 ">
+                                                                @{
+                                                                    SocioDTO use = null;
+                                                                }
                                                                 @if (Session["use"] != null)
                                                                 {
-                                                                    UsuarioDTO use = (UsuarioDTO)Session["use"];
-                                                                    <p class="m-0"><i class="text-uppercase fs-6"></i>@use.nombreUse</p>
-                                                                    <p class="m-0"><i class="text-uppercase fs-6"></i>@use.apellidoUse</p>
+                                                                    use = (SocioDTO)Session["use"];
+                                                                    <p class="m-0"><i class="text-uppercase fs-6"></i>@use.usuario.nombreUse</p>
+                                                                    <p class="m-0"><i class="text-uppercase fs-6"></i>@use.usuario.apellidoUse</p>
                                                                 }
                                                             </div>
                                                         </div>
@@ -92,7 +102,7 @@
                                                                          class="card-img-top" alt="..." />
                                                                 </div>
                                                                 <div class="col-5 m-auto m-sm-0 d-flex p-0 align-items-center pt-2">
-                                                                    <p class="text-light fs-6 text-center">...</p>
+                                                                    <p class="text-light fs-6 text-center">@use.rango</p>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -112,7 +122,7 @@
                                                                          class="card-img-top" alt="..." />
                                                                 </div>
                                                                 <div class="col-5 m-auto m-sm-0 d-flex align-items-center pt-2">
-                                                                    <p class="text-light">0</p>
+                                                                    <p class="text-light">@use.puntoTotalProd</p>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -198,7 +208,7 @@
                                                         </div>
                                                         <div class="card-body">
                                                             <p class="card-text text-center" style="font-size: 12px">
-                                                                Analisis por Lineas
+                                                                Lineas Desactivas
                                                             </p>
                                                         </div>
                                                     </div>
@@ -233,19 +243,19 @@
                                                 <div class="card-body  col-12 pt-3 col-sm-12">
                                                     <div class="row ">
                                                         <div class="col-12 p-0 col-sm-4 ">
-                                                            <h6 class="card-title text-center" style="font-size: 12px">
+                                                            <h6 class="card-title " style="font-size: 12px">
                                                                 Actividad calificada
                                                             </h6>
                                                             <div class="circle w-25 m-auto m-sm-0" id="circles-1"></div>
                                                         </div>
                                                         <div class="col-12 p-0  col-sm-4 ">
-                                                            <h6 class="card-title text-center" style="font-size: 12px">
+                                                            <h6 class="card-title" style="font-size: 12px">
                                                                 Actividad Socio Total
                                                             </h6>
                                                             <div class="circle  w-25 m-auto m-sm-0" id="circles-2"></div>
                                                         </div>
                                                         <div class="col-12 p-0  col-sm-4">
-                                                            <h6 class="card-title text-center" style="font-size: 12px">
+                                                            <h6 class="card-title " style="font-size: 12px">
                                                                 Crecimiento Personal
                                                             </h6>
                                                             <div class="circle  w-25 m-auto m-sm-0" id="circles-3"></div>
@@ -258,7 +268,7 @@
                                 </div>
                             </div>  <br>
                             <!-- GRAFICOS Y ESTADISTICAS DE LA PAGINA -->
-                            <div class="col-12">
+                            <div class="col-11 m-auto">
                                 <div class="row d-flex justify-content-around">
                                     <div class="col-12 col-md-6 col-lg-4 ">
                                         <div class="shadow-lg p-3 mb-3 bg-body rounded m-auto text-dark bg-light mb-3">
@@ -302,7 +312,7 @@
                                                 Acumulado historico de bonificaciones (Informativo)
                                             </div>
                                             <div class="card-body">
-                                                <h2 class="text-end">380.600</h2>
+                                                <h2 class="text-end">@Convert.ToDecimal(use.puntoBono + ".00")</h2>
                                             </div>
                                         </div>
                                     </div>
@@ -315,13 +325,147 @@
                             </span>
                         </div>
                     </div>
-            </section>
-        </div>
+                </section>
+            </div>
         </div>
     </div>
     <script>
         $(document).ready(function () {
             $("#nav").load("http://localhost:64395/Usuario/Menu");
+            CargarCalendario();
         });
+
+
+
+        var myCircle1 = Circles.create({
+            id: 'circles-1',
+            radius: 50,
+            value: 1,
+            maxValue: 100,
+            width: 10,
+            text: function (value) { return value - 1 + '%'; },
+            colors: ['#eeeeee', '#ff9f00'],
+            duration: 400,
+            wrpClass: 'circles-wrp',
+            textClass: 'circles-text',
+            valueStrokeClass: 'circles-valueStroke',
+            maxValueStrokeClass: 'circles-maxValueStroke',
+            styleWrapper: true,
+            styleText: true
+        });
+
+        var myCircle2 = Circles.create({
+            id: 'circles-2',
+            radius: 50,
+            value: 1,
+            maxValue: 100,
+            width: 10,
+            text: function (value) { return value - 1 + '%'; },
+            colors: ['#eeeeee', '#4cc790'],
+            duration: 400,
+            wrpClass: 'circles-wrp',
+            textClass: 'circles-text',
+            valueStrokeClass: 'circles-valueStroke',
+            maxValueStrokeClass: 'circles-maxValueStroke',
+            styleWrapper: true,
+            styleText: true
+        });
+
+        var myCircle3 = Circles.create({
+            id: 'circles-3',
+            radius: 50,
+            value: 1,
+            maxValue: 100,
+            width: 10,
+            text: function (value) { return value - 1 + '%'; },
+            colors: ['#eeeeee', '#3c9ee5'],
+            duration: 400,
+            wrpClass: 'circles-wrp',
+            textClass: 'circles-text',
+            valueStrokeClass: 'circles-valueStroke',
+            maxValueStrokeClass: 'circles-maxValueStroke',
+            styleWrapper: true,
+            styleText: true
+        });
+
+
+        google.charts.load("current", { packages: ["corechart"] });
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['XX', 'IMPORTE'],
+                ['2018', 355.0816]
+            ]);
+
+            var options = {
+                title: 'ESTADISTICA DE COMPRAS - Importe',
+                legend: { position: 'none' },
+                colors: ['2A8A83'],
+                backgroundColor: 'transparent', hAxis: { title: "PERIODO" }
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+
+        google.charts.setOnLoadCallback(drawChart2);
+        function drawChart2() {
+            var data = google.visualization.arrayToDataTable([
+                ['XX', 'IMPORTE'],
+                ['2018', 248.00]
+            ]);
+
+            var options = {
+                title: 'ESTADISTICA DE COMPRAS - Puntos',
+                legend: { position: 'none' },
+                colors: ['2A8A83'],
+                backgroundColor: 'transparent', hAxis: { title: "PERIODO" }
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div2'));
+            chart.draw(data, options);
+        }
+
+        google.charts.setOnLoadCallback(drawChart3);
+        function drawChart3() {
+            var data = google.visualization.arrayToDataTable([
+                ['XX', 'IMPORTE'],
+                ['2018', 248.00]
+            ]);
+
+            var options = {
+                title: 'ESTADISTICA DE COMPRAS - Valor negocio',
+                legend: { position: 'none' },
+                colors: ['2A8A83'],
+                backgroundColor: 'transparent', hAxis: { title: "PERIODO" }
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div3'));
+            chart.draw(data, options);
+        }
+
+        const MESES = [
+            "Enero",
+            "Febrero",
+            "Marzo",
+            "Abril",
+            "Mayo",
+            "Junio",
+            "Julio",
+            "Agosto",
+            "Septiembre",
+            "Octubre",
+            "Noviembre",
+            "Diciembre",
+        ];
+        const f = new Date();
+        function CargarCalendario() {
+            $("#MesAnio").text(MESES[f.getMonth()] + " " + f.getFullYear())
+
+            new Calendar({
+                id: '#color-calendar',
+            })
+        }
+
     </script>
 </body>

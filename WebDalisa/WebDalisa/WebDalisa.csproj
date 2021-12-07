@@ -123,22 +123,31 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="Controllers\VentaProductoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\CategoriaDAO.cs" />
     <Compile Include="Interfaces\ProductoDAO.cs" />
     <Compile Include="Interfaces\UsuarioDAO.cs" />
+    <Compile Include="Interfaces\VentaDAO.cs" />
     <Compile Include="libreria\SqlServerConnection.cs" />
     <Compile Include="Models\BancoDTO.cs" />
+    <Compile Include="Models\CabeceraBoletaDTO.cs" />
+    <Compile Include="Models\CarritoDTO.cs" />
     <Compile Include="Models\CategoriaDTO.cs" />
+    <Compile Include="Models\DetalleBoletaDTO.cs" />
     <Compile Include="Models\EmpleadoDTO.cs" />
+    <Compile Include="Models\MovimientoDTO.cs" />
     <Compile Include="Models\ProductoDTO.cs" />
     <Compile Include="Models\RepartidorDTO.cs" />
     <Compile Include="Models\SocioDTO.cs" />
     <Compile Include="Models\UsuarioDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\CategoriaService.cs" />
     <Compile Include="Service\ProductoService.cs" />
     <Compile Include="Service\UsuarioService.cs" />
+    <Compile Include="Service\VentaService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -162,6 +171,33 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\activo.png" />
+    <Content Include="img\AYLLU.png" />
+    <Content Include="img\bgcanvas.png" />
+    <Content Include="img\colagenoDobleHidrolizado.png" />
+    <Content Include="img\DEPUR-PLUS.png" />
+    <Content Include="img\desactivo.png" />
+    <Content Include="img\dinamico.png" />
+    <Content Include="img\ENERGY.png" />
+    <Content Include="img\garciniaGambolla.png" />
+    <Content Include="img\grafico.png" />
+    <Content Include="img\KAJWI-MOKA.png" />
+    <Content Include="img\KAJWI.png" />
+    <Content Include="img\logoDalisa1.0.png" />
+    <Content Include="img\nuevo.png" />
+    <Content Include="img\OMEGA.png" />
+    <Content Include="img\pack1.png" />
+    <Content Include="img\pack2.png" />
+    <Content Include="img\pack3.png" />
+    <Content Include="img\pack4.png" />
+    <Content Include="img\pack5.png" />
+    <Content Include="img\peru.png" />
+    <Content Include="img\pizarra.png" />
+    <Content Include="img\profile.jpg" />
+    <Content Include="img\QHARIMA-CAJA.png" />
+    <Content Include="img\QHARIMA.png" />
+    <Content Include="img\REGENERIUM.png" />
+    <Content Include="img\SUMAK_PLUS.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -191,6 +227,10 @@
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\chart-area-demo.js" />
+    <Content Include="Scripts\chart-pie-demo.js" />
+    <Content Include="Scripts\Chart.min.js" />
+    <Content Include="Scripts\circle.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -222,6 +262,22 @@
     <Content Include="Views\Usuario\Menu.cshtml" />
     <Content Include="Views\Usuario\Administrador.cshtml" />
     <Content Include="Views\Producto\listadoProducto.cshtml" />
+    <Content Include="Views\Producto\InsertarProducto.cshtml" />
+    <Content Include="Views\Usuario\Error.cshtml" />
+    <Content Include="Views\Usuario\Password.cshtml" />
+    <Content Include="Views\Usuario\Misdatos.cshtml" />
+    <Content Include="Views\Producto\ModificarProducto.cshtml" />
+    <Content Include="Views\VentaProducto\TiendaProducto.cshtml" />
+    <Content Include="Views\Usuario\arbolGeneologico.cshtml" />
+    <Content Include="Views\Usuario\MovimientoSocio.cshtml" />
+    <Content Include="Views\Usuario\cobroMonedero.cshtml" />
+    <Content Include="Views\VentaProducto\MisCompras.cshtml" />
+    <Content Include="Views\VentaProducto\SalidaProducto.cshtml" />
+    <Content Include="Views\VentaProducto\RecojoProducto.cshtml" />
+    <Content Include="Views\Usuario\NuevoSocio.cshtml" />
+    <Content Include="Views\VentaProducto\CancelarPedido.cshtml" />
+    <Content Include="Views\Usuario\EnvioCorreo.cshtml" />
+    <Content Include="Views\Usuario\ListaMovimientoSocio.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

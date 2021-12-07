@@ -12,5 +12,11 @@ namespace WebDalisa.Interfaces
 
      public abstract void modificarProducto(ProductoDTO p);
 
+     public abstract void registrarProducto(ProductoDTO p);
+
+     public abstract   ProductoDTO  BuscarProducto(string id);
+
+     public abstract void BajaProducto(ProductoDTO p);
+        public abstract string nextProducto();
     }
 }

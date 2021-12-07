@@ -1,0 +1,796 @@
+﻿@using WebDalisa.Models
+@{
+    ViewBag.Title = "Misdatos";
+}
+
+@Scripts.Render("~/Content/Index.js")
+
+@{
+    SocioDTO use = null;
+}
+
+@if (Session["use"] != null)
+{
+    use = (SocioDTO)Session["use"];
+
+}
+
+<body id="body" class="bg-fondo">
+
+    <div class="container-fluid bg-fondo">
+        <div class="row">
+            <div class="col-1  col-md-1-1">
+                <div id="nav" class="sidebar close">
+
+                </div>
+            </div>
+            <div class="col-11   col-md-11-1   p-0 ps-4 p-md-0">
+                <section class="home-section">
+                    <div class="container-fluid ">
+                        <div class="row">
+                            <div class="col-12 pb-2 ">
+                                <div style="width: 4%; ">
+                                    <i class=" bx bx-menu" role="button" style="font-size:50px;"></i>
+                                </div>
+                                <div class="col-12 col-md-8 m-auto">
+                                    <div class="card text-dark bg-light mb-3">
+                                        <div class="card-header text-light " style="background-color: #024959;">DATOS PERSONALES</div>
+                                        <div class="card-body">
+                                            <div class="row g-3 align-items-center">
+                                                <div class="col-4 col-md-6 text-end ps-5">
+                                                    <label for="inputPais" class="col-form-label fs-8 ">
+                                                        <i class="text-danger">*</i>
+                                                        Pais de residencia
+                                                    </label>
+                                                </div>
+                                                <div class="col-8 col-md-6">
+                                                    <div class="col-9 col-md-8">
+                                                        <select id="Pais" class="form-select form-select-md "
+                                                                aria-label=".form-select-lg example">
+                                                            <option th:selected="true" value="-1">-SELECCIONE-</option>
+                                                            <option value="PERU">PERU</option>
+                                                            <option value="OTRO">OTRO</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4 col-md-6 text-end ps-5 ">
+                                                    <label for="inputNombre" class="col-form-label fs-8">
+                                                        <i class="text-danger">*</i>
+                                                        Nombre Completo
+                                                    </label>
+                                                </div>
+                                                <div class="col-8 col-md-6">
+                                                    <div class="col-9 col-md-8">
+                                                        <input type="text" id="inputNombre" class="form-control"
+                                                               aria-describedby="passwordHelpInline">
+                                                    </div>
+                                                </div>
+                                                <div class="col-4 col-md-6 text-end ps-5 ">
+                                                    <label for="inputApellido" class="col-form-label fs-8">
+                                                        <i class="text-danger">*</i>
+                                                        Apellido Completo
+                                                    </label>
+                                                </div>
+                                                <div class="col-8 col-md-6">
+                                                    <div class="col-9 col-md-8">
+                                                        <input type="text" id="inputApellido" class="form-control"
+                                                               aria-describedby="passwordHelpInline">
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-12 col-md-6 text-center text-md-end ps-5 ">
+                                                    <label for="inputDate" class="col-form-label fs-8">Fecha de Nacimiento</label>
+                                                </div>
+                                                <div class="col-12 col-md-6">
+                                                    <div class="col-8 m-auto m-md-3">
+                                                        <div class="row ">
+                                                            <div class="col-4 p-0 pe-1">
+                                                                <select id="year" class="form-select form-select-md "
+                                                                        aria-label=".form-select-lg example">
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-5 p-0 pe-1">
+                                                                <select id="mes" class="form-select form-select-md disable"
+                                                                        aria-label=".form-select-lg example">
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-3 p-0">
+                                                                <select id="dia" class="form-select form-select-md disable"
+                                                                        aria-label=".form-select-lg example">
+                                                                </select>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-4 col-md-6 text-end ps-5 ">
+                                                    <label for="estadoCivil" class="col-form-label fs-8">Estado civil</label>
+                                                </div>
+                                                <div class="col-8 col-md-6">
+                                                    <div class="col-9 col-md-8">
+                                                        <select id="estadoCivil" class="form-select form-select-md "
+                                                                aria-label=".form-select-lg example">
+                                                            <option selected value="SOLTERO">SOLTERO</option>
+                                                            <option value="CASADO">CASADO</option>
+                                                            <option value="VIUDO">VIUDO</option>
+                                                            <option value="DIVORCIADO">DIVORCIADO</option>
+                                                            <option value="PAREJA">PAREJA</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4 col-md-6 text-end ps-5 ">
+                                                    <label for="inputPassword6" class="col-form-label fs-8">Sexo</label>
+                                                </div>
+                                                <div class="col-8 col-md-6">
+                                                    <div class="col-9 col-md-8">
+                                                        <select id="sexo" class="form-select form-select-md "
+                                                                aria-label=".form-select-lg example">
+                                                            <option value="M">MASCULINO</option>
+                                                            <option value="F">FEMENINO</option>
+                                                            <option value="O">OTROS</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4 col-md-6 text-md-end ps-4   ">
+                                                    <label for="inputDni" class="col-form-label fs-8">
+                                                        <i class="text-danger">*</i>
+                                                        Dni (documento nacional de identidad)
+                                                    </label>
+                                                </div>
+                                                <div class="col-8 col-md-6">
+                                                    <div class="col-9 col-md-6">
+                                                        <input type="text" id="inputDni" class="form-control"
+                                                               aria-describedby="passwordHelpInline">
+                                                    </div>
+                                                </div>
+                                                <div class="col-4 col-md-6 text-end ps-5 ">
+                                                    <label for="inputDireccion" class="col-form-label fs-8">Direccion completa</label>
+                                                </div>
+                                                <div class="col-8 col-md-6">
+                                                    <div class="col-9 col-md-6">
+                                                        <input type="text" id="inputDireccion" class="form-control"
+                                                               aria-describedby="DirecciondHelpInline">
+                                                    </div>
+                                                </div>
+                                                <div class="col-4 col-md-6 text-end ps-5 ">
+                                                    <label for="inputDepartamento" class="col-form-label fs-8">Departamento</label>
+                                                </div>
+                                                <div class="col-8 col-md-6">
+                                                    <div class="col-9 col-md-6">
+                                                        <input type="text" id="inputDepartamento" class="form-control"
+                                                               aria-describedby="DirecciondHelpInline">
+                                                    </div>
+                                                </div>
+                                                <div class="col-4 col-md-6 text-end ps-5 ">
+                                                    <label for="inputProvincia" class="col-form-label fs-8">Provincia</label>
+                                                </div>
+                                                <div class="col-8 col-md-6">
+                                                    <div class="col-9 col-md-6">
+                                                        <input type="text" id="inputProvincia" class="form-control"
+                                                               aria-describedby="DirecciondHelpInline">
+                                                    </div>
+                                                </div>
+                                                <div class="col-4 col-md-6 text-end ps-5 ">
+                                                    <label for="inputDistrito" class="col-form-label fs-8">Distrito</label>
+                                                </div>
+                                                <div class="col-8 col-md-6">
+                                                    <div class="col-9 col-md-6">
+                                                        <input type="text" id="inputDistrito" class="form-control"
+                                                               aria-describedby="DirecciondHelpInline">
+                                                    </div>
+                                                </div>
+                                                <div class="col-4 col-md-6  text-end ps-5 ">
+                                                    <label for="inputCelular" class="col-form-label fs-8">
+                                                        <i class="text-danger">*</i>
+                                                        Celular
+                                                    </label>
+                                                </div>
+                                                <div class="col-8 col-md-6">
+                                                    <div class="col-9 col-md-6">
+                                                        <input type="text" id="inputCelular" class="form-control"
+                                                               aria-describedby="CelularHelpInline">
+                                                    </div>
+                                                </div>
+
+                                                <div class="card-header text-center text-light rounded " style="background-color: #024959;">
+                                                    RECIBIRAS TU CLAVE Y ACCESO A ESTE MAI
+                                                </div>
+                                                <div class="col-4 col-md-6  text-end ps-4 ">
+                                                    <label for="inputCorreo" class="col-form-label fs-8">
+                                                        <i class="text-danger">*</i>
+                                                        Correo electronico
+                                                    </label>
+                                                </div>
+                                                <div class="col-8 col-md-6">
+                                                    <div class="col-9 col-md-6">
+                                                        <input type="text" id="inputCorreo" class="form-control"
+                                                               aria-describedby="CorreoHelpInline">
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md-6  text-md-end ps-5 ">
+                                                    <label for="inputpassword" class="col-form-label fs-8"><i class="text-danger">* </i> Contrasena    </label>
+                                                </div>
+                                                <div class="col-12  col-md-6 ">
+                                                    <div class="col-6  m-auto m-md-0">
+                                                        <input type="password" id="inputpassword" class="form-control"
+                                                               aria-describedby="passwordHelpInline">
+                                                    </div>
+                                                </div>
+                                            </div>  <br>
+                                            <div class="card-header text-center text-light rounded  " style="background-color: #024959;">SELECCIONA TU KIT</div>
+                                            <div class="row ">
+                                                <div class="col-12 col-sm-6 pt-3">
+                                                    <div class="p-2 pack w-75 m-auto ">
+                                                        <div class="card  border-secondary" role="button">
+                                                            <div class="card-body ">
+                                                                <div class="form-check img" role="button">
+                                                                    <input role="button" class="form-check-input" type="radio" value="PACK BASICO S/.205.00" name="flexRadioDefault" id="flexRadioDefault1">
+                                                                    <label class="form-check-label" for="flexRadioDefault1">
+                                                                        <img role="button" src="~/img/pack1.png" class="w-100" alt="">
+                                                                    </label><p style="font-size:13px" class="text-center">PACK BASICO<br>S/.205.00 </p>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12  col-sm-6   pt-2">
+                                                    <div class="p-2 pack w-75 m-auto ">
+                                                        <div class="card border-secondary" role="button">
+                                                            <div class="card-body ">
+                                                                <div class="form-check img" role="button">
+                                                                    <input role="button" class="form-check-input" value="PACK STANDAR S/.355.00" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                                                    <label class="form-check-label" for="flexRadioDefault2">
+                                                                        <img role="button" src="~/img/pack2.png" class="w-100" alt="">
+                                                                    </label>
+                                                                    <p style="font-size:13px" class="text-center  pt-1">PACK STANDAR<br>S/.355.00 </p>
+                                                                </div>
+
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12  col-sm-6 ">
+                                                    <div class="p-2 pack w-75 m-auto  pt-2">
+                                                        <div class="card border-secondary" role="button">
+                                                            <div class="card-body ">
+                                                                <div class="form-check img" role="button">
+                                                                    <input role="button" class="form-check-input" type="radio" value="PACK PREMIUM S/.650.00" name="flexRadioDefault" id="flexRadioDefault3">
+                                                                    <label class="form-check-label" for="flexRadioDefault3">
+                                                                        <img role="button" src="~/img/pack3.png" class="w-100" alt="">
+                                                                    </label>         <p style="font-size:13px" class="text-center  pt-1">PACK PREMIUM<br>S/.650.00 </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12  col-sm-6 ">
+                                                    <div class="p-2 pack w-75 m-auto pt-2 ">
+                                                        <div class="card border-secondary" role="button">
+                                                            <div class="card-body ">
+                                                                <div class="form-check img" role="button">
+                                                                    <input role="button" class="form-check-input" type="radio" value="PACK VIP S/.1,550.00" name="flexRadioDefault" id="flexRadioDefault4">
+                                                                    <label class="form-check-label" for="flexRadioDefault4">
+                                                                        <img role="button" src="~/img/pack4.png" class="w-100" alt="">
+                                                                    </label>
+                                                                    <p style="font-size:13px" class="text-center pt-1 ">PACK VIP<br>S/.1,550.00 </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-header text-center text-light rounded  " style="background-color: #024959;">SELECCIONA TU KIT</div>
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-12 ">
+                                                    <div class="d-flex justify-content-center pb-1">
+                                                        <div class="col-5  pt-4">
+                                                            <label for="" style="font-size:14px">Terminos y condiciones</label>
+                                                            <a class="btn bg-secondary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1"><i class='bx bxs-file-doc' style="font-size: 25px;"></i></a>
+                                                        </div>
+                                                        <div class="col-3 ">
+                                                            <div class="col-12  pt-1">
+                                                                <label for="" style="font-size:14px">Estoy de acuerdo</label>
+                                                            </div>
+                                                            <div class="col-2 m-auto ">
+                                                                <div class="form-check confir" style="margin-top: -25%;">
+                                                                    <input class="form-check-input" style="font-size: 44px" type="checkbox" value="" id="flexCheckDefault">
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 " style="border-top: 1px solid rgb(230, 225, 225);">
+                                                        <div class="col">
+                                                            <div class="collapse multi-collapse" id="multiCollapseExample1">
+                                                                <div class="card card-body">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="d-flex justify-content-center pb-2 ">
+                                                        <div class="col-5  pt-4 ">
+                                                            <div class="w-50 m-auto ps-3">
+                                                                <label for="" style="font-size:14px">Contrato</label>
+                                                                <a class="btn bg-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2"><i class='bx bxs-file-doc' style="font-size: 25px;"></i></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-3 ">
+                                                            <div class="col-12  pt-1 ">
+                                                                <label for="" style="font-size:14px">Estoy de acuerdo</label>
+                                                            </div>
+                                                            <div class="col-2 m-auto ">
+                                                                <div class="form-check confir" style="margin-top: -25%;">
+                                                                    <input class="form-check-input" style="font-size: 44px" type="checkbox" value="" id="flexCheckDefault">
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12" style="border-top: 1px solid rgb(230, 225, 225);">
+                                                        <div class="col">
+                                                            <div class="collapse multi-collapse" id="multiCollapseExample2">
+                                                                <div class="card card-body">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 ">
+                                                    <div class="d-flex justify-content-center pb-2">
+                                                        <div class="col-6  pt-4  ps-4">
+                                                            <label for="" style="font-size:14px">Privacidad de tu informacion &nbsp; &nbsp;</label>
+                                                            <a class="btn bg-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample3" aria-expanded="false" aria-controls="multiCollapseExample2"><i class='bx bxs-file-doc' style="font-size: 25px;"></i></a>
+                                                        </div>
+                                                        <div class="col-4 ">
+                                                            <div class="col-12  pt-1">
+                                                                <label for="" style="font-size:14px">Estoy de acuerdo</label>
+                                                            </div>
+                                                            <div class="col-4 m-auto ">
+                                                                <div class="form-check confir" style="margin-top: -14%; margin-left: -5%;">
+                                                                    <input class="form-check-input" style="font-size: 44px;" type="checkbox" value="" id="flexCheckDefault">
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12" style="border-top: 1px solid rgb(230, 225, 225);">
+                                                        <div class="col">
+                                                            <div class="collapse multi-collapse" id="multiCollapseExample3">
+                                                                <div id="private" class="card card-body">
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="d-flex justify-content-center pb-2">
+                                                        <div class="col-5  pt-4">
+                                                            <label for="" class="" style="font-size:14px">Estoy de acuerdo que mi linea ascendente pueda ver mi informacion de contacto para ayudarme en mis actividades</label>
+                                                        </div>
+                                                        <div class="col-3 ">
+                                                            <div class="col-12  pt-1">
+                                                                <label for="" style="font-size:14px">Estoy de acuerdo</label>
+                                                            </div>
+                                                            <div class="col-2 m-auto ">
+                                                                <div class="form-check confir" style="margin-top: -25%;">
+                                                                    <input class="form-check-input" style="font-size: 44px" type="checkbox" value="" id="flexCheckDefault">
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="card-footer">
+                                            <div class="float-end">
+                                                <button class="btn btn-secondary " id="siguiente" role="button">Siguiente</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="subir">
+                        <span>
+                            <i class='bx bxs-to-top'></i>
+                        </span>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+        <div class="modal-dialog  modal-lg">
+            <div class="modal-content ">
+                <div class="modal-header" style="background-color: #40717c;">
+                    <h5 class="modal-title text-light fs-4" id="exampleModalLabel">
+                        REALIZAR PEDIDO PRODUCTO
+                    </h5>
+                    <button type="button" class="btn-close bg-light fs-4" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <select class="form-select" id="prod" aria-label="Default select example">
+                                <option selected value="-1">[SELECCIONE]</option>
+                                @foreach (var item in (List<ProductoDTO>)ViewBag.producto)
+                                {
+                                    <option  value="@item.codigoProducto">@item.nombre</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <button id="Agregar" class="btn btn-success">AÑADIR</button>
+                        </div>
+                        <div id="promo" class="col-4 d-none">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h5 class="text-center">Promociòn</h5>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" checked type="radio" name="flexRadioPromo" id="flexRadioPromo1">
+                                        <label class="form-check-label" for="flexRadioPromo">
+                                            Rechazar
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioPromo" id="flexRadioPromo2">
+                                        <label class="form-check-label" for="flexRadioPromo">
+                                            Acceptar
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><br>
+                    <div class="title fs-5 pb-3 text-center">Detalle de su Pedido</div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">OMEGA</th>
+                                            <th scope="col">PRECIO</th>
+                                            <th scope="col">CANTIDAD</th>
+                                            <th scope="col">TOTAL</th>
+                                            <th scope="col">ELIMINAR</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="bodyTable">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="row ">
+                                <div class="col-12 rounded p-2" style="background-color: #c5d4d7;">
+                                    <div class="row text-success">
+                                        <div class="col-6 ps-5">
+                                            &nbsp;
+                                        </div>
+                                        <div class="col-6">
+                                            POR NUEVA INCRIPCION
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-7">
+                                    <div class="float-end pe-3 pt-2" style="font-size:14px">
+                                        <p class="text-end "> Subtotal S/ </p>
+                                        <p class="text-end"> Incripcion S/</p>
+                                        <p class="text-end"> TOTAL S/</p>
+                                    </div>
+                                </div>
+                                <div class="col-5 pt-2">
+                                    <p id="subTotal" style="padding-left: 10%;">  0.00</p>
+                                    <p id="incripcion" style="padding-left: 10%;"> 0.18</p>
+                                    <p id="total">(pe) 1.68</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary " id="afiliar" role="button" >Afiliar</button>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light"
+                                data-bs-dismiss="modal">
+                            Cerrar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    var meses = ["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
+
+        var precioPack = 0;
+        $(document).ready(function () {
+            $("#nav").load("http://localhost:64395/Usuario/Menu");
+            cargarAnio()
+            cargarMes(meses);
+            cargarDia($("#year").val(), $("#mes").val());
+            $("#mes").change(function () {
+                if ($(this).val() != null) {
+                    cargarDia($("#year").val(), $(this).val());
+                }
+            })
+            $(".pack").hover(function () {
+                $(this).addClass("shadow-lg").removeClass("p-2")
+            }, function () {
+                $(this).addClass("p-2").removeClass("shadow-lg");
+            })
+
+            $(".confir input").click(function () {
+                $(".confir input").each(function (i, item) {
+                    if ($(item).is(":checked")) {
+                        $(item).css("background-color", "gray").css("border-color", "gray")
+                    } else {
+                        $(item).css("background-color", "white")
+                    }
+                });
+            })
+            var pack = null;
+            var producto = 0;
+            $("input[name=flexRadioDefault]").click(function () {
+                if ($(this).is(':checked')) {
+                    pack = $(this).val();
+                    switch (pack) {/*$("#promo").addClass("d-none") */
+                        case "PACK BASICO S/.205.00": producto = 2; precioPack = 205;
+                            $("#incripcion").text("45.00")
+                            break;
+                        case "PACK STANDAR S/.355.00": producto = 4; precioPack = 355;
+                            $("#incripcion").text("35.00")
+                            break;
+                        case "PACK PREMIUM S/.650.00": producto = 8; precioPack = 650;
+                            $("#incripcion").text("10.00")
+                            break;
+                        case "PACK VIP S/.1,550.00": producto = 20; precioPack = 1550;
+                            $("#incripcion").text("0.00")
+                            break;
+
+                    }
+                }
+            });
+            var f = new Date();
+            $("#siguiente").click(function () {
+                if ($("#Pais").val() != "-1") {
+                    if ($("#inputNombre").val().trim().length > 0) {
+                        if ($("#inputApellido").val().trim().length > 0) {
+                            if ($("#inputDni").val().trim().length == 8 && $("#inputDni").val().trim().length > 0) {
+                                if ($("#inputCelular").val().trim().length == 9 && $("#inputCelular").val().trim().length > 0) {
+                                    if ($("#inputCorreo").val().trim().length > 0) {
+                                        if ($("#inputpassword").val().trim().length > 0) {
+                                            if (pack != null) {   jQuery.noConflict();
+                                                $("#staticBackdrop").modal('show');//abri el modal
+                                                $('body').addClass('modal-open');
+                                                $("#total").text("(pe)" + precioPack);
+                                            } else {
+                                                alert("Seleccione un Paquete de afiliaciòn")
+                                            }
+                                        } else {
+                                            alert("Ingrese su Password")
+                                        }
+                                    } else {
+                                        alert("Ingrese su Correo")
+                                    }
+                                } else {
+                                    alert("Ingrese su Celular")
+                                }
+                            } else {
+                                alert("Ingrese su Dni")
+                            }
+                        } else {
+                            alert("Ingrese su Apellido")
+                        }
+                    } else {
+                        alert("Ingrese su Nombre")
+                    }
+                } else {
+                    alert("Seleccione un pais")
+                }
+            });
+
+            $("#afiliar").click(function () {
+                var can = 0;
+                $("#bodyTable th").each(function (i, item) {
+                    can = can + parseInt($($("#bodyTable tr")[i]).find("td:eq(2)").html());
+                });
+                if (can == producto) {
+                    var res = confirm("Desea Afiliar Nuevo Socio?");
+                    if (res) {
+                        var jsonSocio = {
+                            "paqueteInscrito": pack,
+                            "usuario": {
+                                "pais": $("#Pais").val(),
+                                "nombreUse": $("#inputNombre").val(),
+                                "apellidoUse": $("#inputApellido").val(),
+                                "fechaNaci": $("#year").val() + "/" + $("#mes").val() + "/" + $("#dia").val(),
+                                "estadoCivil": $("#estadoCivil").val(),
+                                "sexo": $("#sexo").val(),
+                                "dniUse": $("#inputDni").val(),
+                                "direccion": $("#inputDireccion").val(),
+                                "departamento": $("#inputDepartamento").val(),
+                                "provincia": $("#inputProvincia").val(),
+                                "distrito": $("#inputDistrito").val(),
+                                "celularUse": $("#inputCelular").val(),
+                                "correoUse": $("#inputCorreo").val(),
+                                "pass": $("#inputpassword").val()
+                            }
+                        };
+                        $.ajax({
+                            url: '@Url.Content("~/Usuario/AfiliarSocio")',
+                            type: 'POST',
+                            data: JSON.stringify(jsonSocio),
+                            dataType: "json",
+                            contentType: "application/json;charset=UTF-8",
+                            success: function (json) {
+                                if (json != null) {
+                                    var dato = []
+                                    $("#bodyTable th").each(function (i, item) {
+                                        dato.push({
+                                            "cabeceraBoleta": {
+                                                "socio": { "idSocio": json.idSocio }
+                                            },
+                                            "producto": { "codigoProducto": $($("#bodyTable tr")[i]).find("th:eq(0)").html() },
+                                            "cantidad": $($("#bodyTable tr")[i]).find("td:eq(2)").html()
+                                        });
+                                    });
+
+                                    $.ajax({
+                                        url: '@Url.Content("~/Usuario/generarBoleta")',
+                                        type: 'POST',
+                                        data: JSON.stringify(dato),
+                                        dataType: "json",
+                                        contentType: "application/json;charset=UTF-8",
+                                        success: function (json) {
+                                            alert("Bienvenido: " + $("#inputNombre").val() + " " + $("#inputApellido").val());
+                                            var res = confirm("Cerrar Seccion para Ingresa Como Socio: " + $("#inputNombre").val() + " ?");
+
+                                            if (res) {
+                                                location.href='@Url.Content("~/Usuario/CerrarSeccion")'
+                                            }
+
+                                        },
+                                        error: function (xhr, status) {
+                                            console.log(status)
+                                        }
+                                    });
+                                } else {
+                                    alert("incorrecto")
+                                }
+
+
+
+                            },
+                            error: function (xhr, status) {
+                                console.log(status)
+                            }
+                        });//final del ajax afiliar socio
+                    }
+
+                } else {
+                    alert("El " + pack + " seleccionado consta de :" + producto + " producto Dalisa");
+                }
+            });
+
+            $("#Agregar").click(function (a) {
+                var bandera = true;
+                $.ajax({
+                url: '@Url.Content("~/Usuario/BuscarProducto")',
+                    type: 'POST',
+                    data: { 'codigo': $("#prod").val() },
+                  dataType: "json",
+                        success: function(json) {
+                            var row = `<tr>
+            <th scope="row">`+ json.producto.codigoProducto + `</th>
+            <td> <img width="50"
+            src="/img/`+ json.producto.foto + `" /></td>
+            <td>`+ json.precio + `</td>
+            <td>`+ json.cantidad + `</td>
+            <td>`+ json.importoTal + `</td>
+            <td> <button type="button" onclick='eliminar("`+ json.producto.codigoProducto + `")' class='bx bx-trash text-danger' style="font-size: 45px; border:none"></button></td>
+            </tr>
+             `;
+                            if ($("#bodyTable th").length == 0) {
+                                $("#bodyTable").append(row)
+                            } else {
+                                $("#bodyTable th").each(function (i, item) {
+                                    if ($(item).html() == json.producto.codigoProducto) {
+                                        $($("#bodyTable tr")[i]).find("td:eq(2)").html(parseInt($($("#bodyTable tr")[i]).find("td:eq(2)").html()) + 1);
+                                        $($("#bodyTable tr")[i]).find("td:eq(3)").html(parseInt($($("#bodyTable tr")[i]).find("td:eq(1)").html()) * parseInt($($("#bodyTable tr")[i]).find("td:eq(2)").html()));
+                                        bandera = false;
+                                    }
+                                });
+                                if (bandera) {
+                                    $("#bodyTable").append(row)
+                                }
+
+                            }
+                            calculoProducto();
+
+                        },
+                    error: function (xhr, status) {
+                        console.log(status)
+                    }
+                });
+            });
+
+        });
+
+
+        function calculoProducto() {
+            var subTotal = 0
+            $("#bodyTable  tr").find("td:eq(3)").each(function (i, item) {
+                subTotal = parseInt(subTotal) + parseInt($(this).html())
+            });
+            $("#subTotal").text(subTotal);
+            $("#total").text("(pe)" + precioPack);
+
+        }
+
+        function PackInscrito() {
+            $(".form-check-input").each(function (i, item) {
+                if ($(item).is(":checked")) {
+                    return $(item, p).text();
+
+                }
+
+            })
+        }
+        function eliminar(id) {
+            $("#bodyTable th").each(function (i, item) {
+                if ($(item).html() == id) {
+                    $($("#bodyTable tr")[i]).remove(); calculoProducto();
+                }
+            });
+        }
+        function cargarMes(meses) {
+            $.each(meses, function (index, item) {
+                let $option = $('<option />', {
+                    text: item,
+                    value: index + 1,
+                });
+                $("#mes").prepend($option);
+            });
+
+        }
+        function cargarAnio() {
+            var date = new Date();
+            for (var i = 1900; i <= (date.getFullYear() - 18); i++) {
+                let $option = $('<option />', { text: i, value: i, });
+                $("#year").prepend($option);
+            }
+        }
+        function cargarDia(año, mes) {
+            for (var i = 1; i <= new Date(año, mes, 0).getDate(); i++) {
+                let $option = $('<option />', {
+                    text: i,
+                    value: i,
+                });
+                $("#dia").prepend($option);
+            }
+
+        }
+    </script>
+</body>
+

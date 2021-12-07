@@ -36,9 +36,7 @@
             <ul class="sub-menu">
                 <li><a class="link_name">Productos</a></li>
                 <li><a id="Productos" href="http://localhost:64395/Producto/listadoProducto"> Lista Productos</a></li>
-                <li><a href="#"> Nuevo Productos</a></li>
-                <li><a href="#"> Reporte Productos</a></li>
-
+                <li><a href="/Producto/InsertarProducto"> Nuevo Productos</a></li>
             </ul>
         </li>
         <li>
@@ -51,10 +49,13 @@
             </div>
             <ul class="sub-menu">
                 <li><a class="link_name">Solicitud</a></li>
-                <li><a id="PagoSocio" href="#">Pago Socio</a></li>
-                <li><a id="idPedido" href="#">Pago Pedido</a></li>
+                <li><a href="http://localhost:64395/VentaProducto/CancelarPedido">Cancelacion Pedido</a></li>
+                <li><a href="http://localhost:64395/VentaProducto/RecojoProducto">Recojo en Tienda Pedido</a></li>
+                <li><a href="http://localhost:64395/VentaProducto/SalidaProducto">Envio de Pedido</a></li>
+                <li><a href="http://localhost:64395/Usuario/ListaMovimientoSocio">Moviento de Socio</a></li>
             </ul>
         </li>
+     
     }
     else if (rol.Equals("S"))
     {
@@ -64,7 +65,7 @@
                 <span class="link_name Dashboard">Dashboard</span>
             </a>
             <ul class="sub-menu blank">
-                <li><a class="link_name Dashboard" href="#">Dashboard</a></li>
+                <li><a class="link_name Dashboard" href="Dashboard">Dashboard</a></li>
             </ul>
         </li>
         <li>
@@ -77,8 +78,8 @@
             </div>
             <ul class="sub-menu">
                 <li><a class="link_name">Mi Organizacion</a></li>
-                <li><a id="afiliar" href="#">Nuevo</a></li>
-                <li><a href="#">Geneologia</a></li>
+                <li><a id="afiliar" href="http://localhost:64395/Usuario/NuevoSocio">Nuevo</a></li>
+                <li><a href="http://localhost:64395/Usuario/arbolGeneologico">Geneologia</a></li>
                 <li> <a id="pizarron" href="#">Pizarron</a></li>
             </ul>
         </li>
@@ -86,15 +87,14 @@
             <div class="iocn-link">
                 <a href="#">
                     <i class='bx bx-cart'></i>
-                    <span class="link_name Producto">Compras</span>
+                    <span class="link_name ">Compras</span>
                 </a>
                 <i class='bx bxs-chevron-down arrow'></i>
             </div>
             <ul class="sub-menu">
-                <li><a class="link_name Producto" href="#">Comprar</a></li>
-                <li><a href="#">Mis Compras</a></li>
-                <li><a href="#">Consolidar pedidos</a></li>
-                <li><a href="#">Mis Pedidos</a></li>
+                <li><a class="link_name">Compras</a></li>
+                <li><a href="http://localhost:64395/VentaProducto/TiendaProducto">Productos</a></li>
+                <li><a href="http://localhost:64395/VentaProducto/MisCompras">Mis Compras</a></li>
             </ul>
         </li>
         <li>
@@ -107,11 +107,8 @@
             </div>
             <ul class="sub-menu">
                 <li><a class="link_name">Setting</a></li>
-                <li><a href="#">Soporte</a></li>
-                <li><a href="#">Agenda</a></li>
-                <li><a href="#">Mensaje</a></li>
-                <li><a id="Tranferencia" href="#">Tranferencia</a></li>
-                <li><a id="cobro" href="#">Cobro monedero</a></li>
+                <li><a id="Tranferencia" href="http://localhost:64395/Usuario/MovimientoSocio">Tranferencia</a></li>
+                <li><a id="cobro" href="http://localhost:64395/Usuario/cobroMonedero">Cobro monedero</a></li>
             </ul>
         </li>
         <li>
@@ -124,8 +121,8 @@
             </div>
             <ul class="sub-menu">
                 <li><a class="link_name " href="#">Setting</a></li>
-                <li><a id="Setting" href="Misdatos">Mis Datos</a></li>
-                <li><a id="Password" href="Password">Password</a></li>
+                <li><a id="Setting" href="http://localhost:64395/Usuario/Misdatos">Mis Datos</a></li>
+                <li><a id="Password" href="http://localhost:64395/Usuario/Password">Password</a></li>
             </ul>
         </li>
     }
@@ -139,15 +136,28 @@
             <div class="name-job">
                 @if (Session["use"] != null)
                 {
-                    UsuarioDTO datos = (UsuarioDTO)Session["use"];
+                    try
+                    {
+                        SocioDTO datos = (SocioDTO)Session["use"];
 
-                    <h4 class="profile_name" style="font-size: 12px;">@datos.nombreUse</h4>
-                    <h4 class="profile_name" style="font-size: 12px;">@datos.apellidoUse</h4>
+                        <h4 class="profile_name" style="font-size: 12px;">@datos.usuario.nombreUse</h4>
+                        <h4 class="profile_name" style="font-size: 12px;">@datos.usuario.apellidoUse</h4>
+                    }
+                    catch
+                    {
+                        UsuarioDTO use = (UsuarioDTO)Session["use"];
+
+                        <h4 class="profile_name" style="font-size: 12px;">@use.nombreUse</h4>
+                        <h4 class="profile_name" style="font-size: 12px;">@use.apellidoUse</h4>
+                    }
+
+
                 }
             </div>
+
             <i data-bs-toggle="modal" data-bs-target="#exampleModal" class='bx bx-log-out'></i>
             <ul class="sub-menu m-0 p-0 mt-3">
-                <a><i class=' link_name  bx bx-log-out ' data-bs-toggle="modal" data-bs-target="#exampleModal" style="font-size: 30px"></i></a>
+                <i data-bs-toggle="modal" data-bs-target="#exampleModal" class='bx bx-log-out link_name'></i>
             </ul>
         </div>
     </li>

@@ -71,7 +71,7 @@
                                                 </textarea>
                                                 </td>
                                                 <td>
-                                                    @Html.DisplayFor(modelItem => item.marca)
+                                                    @Html.DisplayFor(modelItem => item.categoria.codigoCategoria)
                                                 </td>
                                                 <td>
                                                     @Html.DisplayFor(modelItem => item.precio)
@@ -89,8 +89,8 @@
                                                  Html.DisplayFor(modelItem => item.foto)
                                                 </td>-->
                                                 <td>
-                                                    @Html.ActionLink("Edit", "Editar", new { /* id=item.PrimaryKey */ }, new { @style = "btn btn-warning" })
-                                                    @Html.ActionLink("Delete", "Eliminar", new { /* id=item.PrimaryKey */ }, new { @style = "btn btn-danger" })
+                                                    @Html.ActionLink("Editar", "ModificarProducto", new { id=item.codigoProducto  }, new { @style = "btn btn-warning" })
+                                                    @Html.ActionLink("Eliminar", "EliminarProducto", new {  id=item.codigoProducto }, new { @style = "btn btn-danger" })
                                                 </td>
                                             </tr>
                                         }

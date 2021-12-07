@@ -1,0 +1,3 @@
+ejecutar todo el script bd
+bootstra 5
+cualquer consulta 924145874

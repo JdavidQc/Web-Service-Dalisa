@@ -1,0 +1,432 @@
+﻿@using WebDalisa.Models
+
+<style>
+    .BELLEZA {
+        background: #584394;
+        color: #584394;
+    }
+
+    .NUTRICION {
+        background: #ff033a;
+        color: #ff033a;
+    }
+
+    .VITALIDAD {
+        background: #b187b8;
+        color: #b187b8;
+    }
+
+    .DEPURACION {
+        background: #a8cf45;
+        color: #a8cf45;
+    }
+    .wrap {
+        width: 1100px;
+        margin: 50px auto;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+    }
+
+    .tarjeta-wrap {
+        margin: 10px;
+        -webkit-perspective: 800;
+        perspective: 800;
+    }
+
+    .tarjeta {
+        width: 250px;
+        height: 400px;
+        background: #fff;
+        position: relative;
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+        -webkit-transition: .7s ease;
+        transition: .7s ease;
+        -webkit-box-shadow: 0px 10px 15px -5px rgba(0,0,0,0.65);
+        box-shadow: 0px 10px 15px -5px rgba(0,0,0,0.65);
+    }
+
+    .adelante, .atras {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+
+    .adelante {
+        width: 100%;
+    }
+
+    .atras {
+        -webkit-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+        padding: 15px;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        text-align: center;
+        color: black;
+        font-family: "open sans";
+        background: #fff;
+    }
+
+    .tarjeta-wrap:hover .tarjeta {
+        -webkit-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+    }
+
+</style>
+
+
+
+
+@Scripts.Render("~/Content/Index.js")
+@{ 
+    List<CarritoDTO> lista = new List<CarritoDTO>();
+    double impt = 0.0;
+    if (Session["carrito"] != null)
+    {
+        lista = (List<CarritoDTO>)Session["carrito"];
+        foreach (var item in lista)
+        {
+            impt += item.importoTal;
+        }
+    }
+
+}
+<body id="body" class="bg-fondo">
+    <div class="container-fluid bg-fondo">
+        <div class="row">
+            <div class="col-1  col-md-1-1">
+                <div id="nav" class="sidebar close">
+                </div>
+            </div>
+            <div class="col-11   col-md-11-1  ps-5 ps-md-0">
+                <section class="home-section">
+                    <div class="container-fluid ">
+                        <div class="row">
+                            <div class="col-12 pb-2 ">
+                                <div class="row">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="col-0">
+                                            <i class="bx bx-menu d-none d-sm-block " role="button"
+                                               style="font-size:50px;"></i>
+                                        </div>
+                                        <div class="col-8">
+                                            <div class="float-end pt-3 ps-2">
+
+                                                <div role="button" class="position-relative">
+                                                    <i class='bx bxs-cart ' data-bs-toggle="modal"
+                                                       data-bs-target="#staticBackdrop" style="font-size: 40px;"></i>
+                                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
+                                                        + @lista.Count()<span class="visually-hidden">unread messages</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="float-end pt-3">
+                                                <label for="total" class="fs-5">
+                                                    S<span class="fs-6">/</span> <label>@impt</label>
+                                                </label>
+                                                <img width="25" src="~/img/peru.png"
+                                                     alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <h3>ENCONTRADO: @ViewBag.cantidad</h3>
+                                    </div>
+                                    <div class="col-4">
+                                        <select id="categoria" class="form-select" aria-label="Default select example">
+                                            <option selected>[SELECCIONE]</option>
+                                            @foreach (var item in (List<CategoriaDTO>)ViewBag.categoria)
+                                            {
+                                                <option  value="@item.codigoCategoria">@item.nomCategoria</option>
+                                            }
+                                            <option th:value="null">TODO</option>
+                                        </select>
+                                    </div>
+
+                                </div><br>
+                                <div class="row">
+                                    @foreach (var p in (List<ProductoDTO>)ViewBag.producto)
+                                    {
+                                        <div class="col-12 col-md-6 col-lg-4  mb-4">
+
+                                            <div class="bg-light  pb-4"> 
+                                                <div class="col-12 rounded-top @p.categoria.nomCategoria">
+                                                    <div class="rounded-pill bg-light w-50 m-auto p-0 pt-3 pb-3">
+                                                        <h3 class="text-center">
+                                                            @p.categoria.nomCategoria
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                                <div class="col-9 col-md-11 col-lg-10 ps-lg-2 m-auto">
+                                                    <div class="ps-3 tarjeta-wrap">
+                                                        <div class="tarjeta">
+                                                            <div class="adelante card1">
+                                                                <img class="w-100 h-100" src="~/img/@p.foto" alt="" />
+                                                            </div>
+                                                            <div class="atras">
+                                                                <div class="row">
+                                                                    <div class="12">
+                                                                        <h4>@p.nombre</h4>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <p style="font-size:12px">
+                                                                            @p.descripcion
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4 m-auto @p.categoria.nomCategoria rounded-bottom">
+                                                    <form action="agregarCarrito" method="post">
+                                                        <input type="hidden" name="codigo" value="@p.codigoProducto">
+                                                        <button class="btn text-light m-auto  ">
+                                                            <i class='bx bx-cart'></i>Comprar S/. @p.precio
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>     <div class="subir">
+                        <span>
+                            <i class='bx bxs-to-top'></i>
+                        </span>
+                    </div>
+
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal-->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+        <div class="modal-dialog  modal-lg">
+            <div class="modal-content ">
+                <div class="modal-header" style="background-color: #40717c;">
+                    <h5 class="modal-title text-light fs-4" id="exampleModalLabel">
+                        CARRITO DE COMPRAR
+                    </h5>
+                    <button type="button" class="btn-close bg-light fs-4" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body modal-dialog-scrollable">
+                    <div class="row">
+                        <div class="col-9">
+                            <div class="title fs-5 pb-3 text-center">Detalle de su comprar</div>
+                        </div>
+                        <div class="col-3">
+                            <form action="generarBoleta" method="post">
+                                <input type="hidden" name="opc" value="D" id="opc"/>
+                                <button type="submit" onclick="return confirm('generar compra?')" id="Comprar" class="btn btn-success">Generar Compra</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            @if (Session["carrito"] != null)
+                            {
+                                foreach (var item in lista)
+                                {
+                                    <div class="row">
+                                        <div class="rounded p-2" style="background-color: #9fb8bd;">
+                                            <div class="row text-light text-center">
+                                                <div class="c col-2 ">#</div>
+                                                <div class=" col-3">@item.producto.nombre</div>
+                                                <div class="c col-2 ">PRECIO</div>
+                                                <div class="c col-2">CANTIDAD</div>
+                                                <div class="c col-2 ">TOTAL</div>
+                                            </div>
+                                        </div>
+                                        <div class="body ">
+                                            <div class="row text-center">
+                                                <div class="col-2">
+                                                    <p class="pt-5">
+                                                        @item.producto.codigoProducto
+                                                    </p>
+                                                </div>
+                                                <div class="col-3">
+                                                    <div class="row">
+                                                        <div class="col-6 m-auto p-0 pe-md-3">
+                                                            <img width="50" src="/foto/@item.producto.foto" alt="@item.producto.foto" />
+                                                        </div>
+                                                        <div class="col-10 col-md-7 m-auto  p-0">
+                                                            <div class="input-group  ">
+                                                                <form action="AgregarCarrito" method="post">
+                                                                    <input type="hidden" name="cantidad" value="-1">
+                                                                    <input type="hidden" name="codigo"
+                                                                           value="@item.producto.codigoProducto">
+                                                                    <button class="btn btn-light p-0 pe-2 ps-2"
+                                                                            style="height: 1%;" type="submit"
+                                                                            id="button-addon1">
+                                                                        -
+                                                                    </button>
+                                                                </form>
+                                                                <div class="ps-3 pe-3 ">
+                                                                    <p class="fs-6  text-center">@item.cantidad</p>
+                                                                </div>
+                                                                <form action="AgregarCarrito" method="post">
+                                                                    <input type="hidden" name="cantidad" value="1">
+                                                                    <input type="hidden" name="codigo"
+                                                                           value="@item.producto.codigoProducto">
+                                                                    <button style="height: 1%;"
+                                                                            class="btn btn-light p-0 pe-2 ps-2" type="submit"
+                                                                            id="button-addon1">
+                                                                        +
+                                                                    </button>
+                                                                </form>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-2">
+                                                    <p class="pt-5">
+                                                        @item.precio
+                                                    </p>
+                                                </div>
+                                                <div class="col-2">
+                                                    <p class="pt-5">
+                                                        @item.cantidad
+                                                    </p>
+                                                </div>
+                                                <div class="col-2">
+                                                    <p class="pt-5">
+                                                        @item.importoTal
+                                                    </p>
+                                                </div>
+                                                <div class="col-1 ">
+                                                    <p class="text-center" style="padding-top:80%;">
+                                                        <form action="AgregarCarrito" method="post">
+                                                            <input type="hidden" name="codigo" value="@item.producto.codigoProducto">
+                                                            <input type="hidden" name="cantidad" value="-@item.cantidad">
+                                                            <button type="submit" class='bx bx-trash text-danger'
+                                                                    style="font-size: 45px; border:none"></button>
+                                                        </form>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                }
+                            }
+
+                        </div>
+                        <div class="col-12">
+                            <div class="row ">
+                                <div class="col-12 rounded p-2" style="background-color: #c5d4d7;">
+                                    <div class="row text-success">
+                                        <div class="col-6 ps-5">
+                                            FLETE
+                                        </div>
+                                        <div class="col-6">
+                                            FLETE
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4 pt-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            Recojo en la empresa
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            Delivery
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-3 pt-1">
+                                    <div class="float-end pe-3 pt-2" style="font-size:14px">
+                                        <p class="text-end  text-success"> 1.50</p>
+                                        <p class="text-end "> Subtotal S/ </p>
+                                        <p class="text-end"> IGV S/</p>
+                                        <p class="text-end"> TOTAL S/</p>
+                                    </div>
+                                </div>
+                                <div class="col-5 pt-2">
+                                    <p id="flete" class="text-success ps-4"> 1.50</p>
+                                    <p
+                                       style="padding-left: 10%;"> 0.00</p>
+                                    <p> &nbsp; &nbsp; &nbsp; &nbsp; 0.18</p>
+                                    <p>
+                                        (pe) @impt
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div>
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#nav").load("http://localhost:64395/Usuario/Menu");
+            $(".c").each(function (i, item) {
+                if (i > 3)
+                    $(item).text("");
+            });
+            $("#categoria").change(function () {
+                location.href = "http://localhost:64395/VentaProducto/TiendaProducto?cate=" + $(this).val();
+
+            });
+            $("#flexRadioDefault2").click(function () {
+                $("#opc").val("D"); $("#flete").text("1.50")
+            });
+            $("#flexRadioDefault1").click(function () {
+                $("#opc").val("T"); $("#flete").text("0.0")
+            });
+        });
+    </script>
+</body>
+
+
+  

@@ -1,0 +1,279 @@
+﻿@using WebDalisa.Models
+
+@Scripts.Render("~/Content/Index.js")
+<script src="https://unpkg.com/gojs/release/go-debug.js"></script>
+<body id="body" onload="init()" class="bg-fondo">
+    <div class="container-fluid bg-fondo">
+        <div class="row">
+            <div class="col-1  col-md-1-1">
+                <div id="nav" class="sidebar close">
+                </div>
+            </div>
+            <div class="col-11   col-md-11-1  ps-5 ps-md-0">
+                <section class="home-section">
+                    <div class="container-fluid ">
+                        <div class="row">
+                            <div class="col-12 pb-2 ">
+                                <div style="width: 4%; ">
+                                    <i class=" bx bx-menu" role="button" style="font-size:50px;"></i>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="col-12">
+                                    <div id="fullDiagram" style="height:30vh; width:100%;"></div>
+                                    <div id="localDiagram" style="height:70vh;width:100%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
+                    <div class="subir">
+                        <span>
+                            <i class='bx bxs-to-top'></i>
+                        </span>
+                    </div>
+
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+
+        $(document).ready(function () {
+            $("#nav").load("http://localhost:64395/Usuario/Menu");
+
+        });
+
+        var DataSocio;
+        function init(Idsocio) {
+        var img = null; var dato = [];
+            $.ajax({
+                url: '@Url.Content("~/Usuario/arbolGeneologicoSocio")',
+                type: 'POST',
+                dataType: "json",
+                success: function (json) {
+                    DataSocio = json;
+                    $.each(DataSocio, function (i, item) {
+                        if (item.key.activado == "1") img = "@Url.Content("~/img/activo.png")"
+                        else if (item.key.activado == "0") img = "@Url.Content("~/img/desactivo.png")"
+                        else img = "@Url.Content("~/img/nuevo.png")";
+                        dato.push({ "key": item.key.idSocio, "parent": item.key.PadreSocio, "name": item.key.idSocio, "source": img });
+                    });
+                    var geo = go.GraphObject.make;  // for conciseness in defining templates
+
+                    myFullDiagram =
+                        geo(go.Diagram, "fullDiagram",  // each diagram refers to its DIV HTML element by id
+                            {
+                                initialAutoScale: go.Diagram.UniformToFill,  // automatically scale down to show whole tree
+                                maxScale: 0.25,
+                                contentAlignment: go.Spot.Center,  // center the tree in the viewport
+                                isReadOnly: true,  // don't allow user to change the diagram
+                                "animationManager.isEnabled": false,
+                                layout: geo(go.TreeLayout,
+                                    { angle: 90, sorting: go.TreeLayout.SortingAscending }),
+                                maxSelectionCount: 1,  // only one node may be selected at a time in each diagram
+                                // when the selection changes, update the myLocalDiagram view
+                                "ChangedSelection": showLocalOnFullClick
+                            });
+
+                    myLocalDiagram =  // this is very similar to the full Diagram
+                        geo(go.Diagram, "localDiagram",
+                            {
+                                autoScale: go.Diagram.UniformToFill,
+                                contentAlignment: go.Spot.Center,
+                                isReadOnly: true,
+                                layout: geo(go.TreeLayout,
+                                    { angle: 90, sorting: go.TreeLayout.SortingAscending }),
+                                "LayoutCompleted": function (e) {
+                                    var sel = e.diagram.selection.first();
+                                    if (sel !== null) myLocalDiagram.scrollToRect(sel.actualBounds);
+                                },
+                                maxSelectionCount: 1,
+                                // when the selection changes, update the contents of the myLocalDiagram
+                                "ChangedSelection": showLocalOnLocalClick,
+                                "ObjectDoubleClicked": showLocalOnLocalDoubeClick
+                            });
+
+                    // Define a node template that is shared by both diagrams
+                    var myNodeTemplate =
+                        geo(go.Node, "Horizontal",
+                            { background: "#ffff" },
+                            geo(go.Picture,
+                                { margin: 10, width: 50, height: 40 },
+                                new go.Binding("source")),
+                            geo(go.TextBlock, "Default Text",
+                                { margin: 10, stroke: "black", font: "bold 16px sans-serif" },
+                                new go.Binding("text", "name"))
+                        );
+                    geo(go.Node,
+                        {
+                            // handle mouse enter/leave events to show/hide the ports
+                            mouseEnter: function (e, obj) { showPorts(obj.part, true); },
+                            mouseLeave: function (e, obj) { showPorts(obj.part, false); }
+                        });
+                    myFullDiagram.nodeTemplate = myNodeTemplate;
+                    myLocalDiagram.nodeTemplate = myNodeTemplate;
+
+                    // Define a basic link template, not selectable, shared by both diagrams
+                    var myLinkTemplate =
+                        geo(go.Link,
+                            { routing: go.Link.Normal, selectable: false },
+                            geo(go.Shape,
+                                { strokeWidth: 1 })
+                        );
+                    myFullDiagram.linkTemplate = myLinkTemplate;
+                    myLocalDiagram.linkTemplate = myLinkTemplate;
+
+                    // Create the full tree diagram
+                    setupDiagram(dato);
+
+                    // Create a part in the background of the full diagram to highlight the selected node
+                    highlighter =
+                        geo(go.Part, "Auto",
+                            {
+                                layerName: "Background",
+                                selectable: false,
+                                isInDocumentBounds: false,
+                                locationSpot: go.Spot.Center
+                            },
+                            geo(go.Shape, "Ellipse",
+                                {
+                                    fill: geo(go.Brush, "Radial", { 0.0: "yellow", 1.0: "white" }),
+                                    stroke: null,
+                                    desiredSize: new go.Size(400, 400)
+                                })
+                        );
+                    myFullDiagram.add(highlighter);
+
+                    // Start by focusing the diagrams on the node at the top of the tree.
+                    // Wait until the tree has been laid out before selecting the root node.
+                    myFullDiagram.addDiagramListener("InitialLayoutCompleted", function (e) {
+                        var node0 = myFullDiagram.findPartForKey(0);
+                        if (node0 !== null) node0.isSelected = true;
+                        showLocalOnFullClick();
+                    });
+                },
+                error: function (xhr, status) {
+                    return null;
+                    console.log(status)
+                }
+            });
+
+
+
+
+
+        }
+
+
+        // Make the corresponding node in the full diagram to that selected in the local diagram selected,
+        // then call showLocalOnFullClick to update the local diagram.
+        function showLocalOnLocalClick() {
+            var selectedLocal = myLocalDiagram.selection.first();
+            if (selectedLocal !== null) {
+                // there are two separate Nodes, one for each Diagram, but they share the same key value
+                myFullDiagram.select(myFullDiagram.findPartForKey(selectedLocal.data.key));
+            }
+        }
+        function showLocalOnLocalDoubeClick() {
+            var selectedLocal = myLocalDiagram.selection.first();
+            if (selectedLocal !== null) {
+                var modal;
+                $.each(DataSocio, function (i, item) {
+                    if (item.key.idSocio == selectedLocal.data.key) {
+   modal = `
+                <div class="modal fade" id="datoSocio"  data-bs-backdrop="static" aria-hidden="true" aria-labelledby="datoSocio" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" >
+      <div class="modal-header text-light"style="background-color: rgb(86, 156, 235);">
+        <h5 class="modal-title" id="datoSocio">`+ item.key.idSocio + `</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body"style=" border-bottom: 2px solid rgb(86, 156, 235)">
+        <div class="row">
+          <div class="col-6">
+          RANGO
+          </div>
+          <div class="col-6 ">
+          `+ item.key.rango + `
+        </div>
+          <div class="col-6">
+          NOMBRE
+        </div>
+          <div class="col-6 ">
+          `+ item.key.usuario.nombreUse + `
+        </div>
+          <div class="col-6">
+          APELLIDO
+        </div>
+          <div class="col-6 ">
+          `+ item.key.usuario.apellidoUse + `
+        </div>
+          <div class="col-6">
+          PUNTO TOTALES
+        </div>
+          <div class="col-6 ">
+          `+ item.key.puntoTotalProd + `
+        </div>
+          </div>
+         </div>
+    </div>
+  </div>
+</div>  `;
+    }
+   });
+                $("#datoSocio").remove(); jQuery.noConflict();
+                $('#body').append(modal);
+                $("#datoSocio").modal('show');//abri el modal
+                $('body').addClass('modal-open');
+                myFullDiagram.select(myFullDiagram.findPartForKey(selectedLocal.data.key));
+            }
+        }
+
+        function showLocalOnFullClick() {
+            var node = myFullDiagram.selection.first();
+            if (node !== null) {
+                // make sure the selected node is in the viewport
+                myFullDiagram.scrollToRect(node.actualBounds);
+                // move the large yellow node behind the selected node to highlight it
+                highlighter.location = node.location;
+                // create a new model for the local Diagram
+                var model = new go.TreeModel();
+                // add the selected node and its children and grandchildren to the local diagram
+                var nearby = node.findTreeParts(3);  // three levels of the (sub)tree
+                // add parent and grandparent
+                var parent = node.findTreeParentNode();
+                if (parent !== null) {
+                    nearby.add(parent);
+                    var grandparent = parent.findTreeParentNode();
+                    if (grandparent !== null) {
+                        nearby.add(grandparent);
+                    }
+                }
+                // create the model using the same node data as in myFullDiagram's model
+                nearby.each(function (n) {
+                    if (n instanceof go.Node) model.addNodeData(n.data);
+                });
+                myLocalDiagram.model = model;
+                // select the node at the diagram's focus
+                var selectedLocal = myLocalDiagram.findPartForKey(node.data.key);
+                if (selectedLocal !== null) selectedLocal.isSelected = true;
+            }
+        }
+
+        // Create the tree model containing TOTAL nodes, with each node having a variable number of children
+        function setupDiagram(data) {
+            myFullDiagram.model = new go.TreeModel(data);
+        }
+
+
+
+
+
+
+    </script>
+</body>
+
+
+

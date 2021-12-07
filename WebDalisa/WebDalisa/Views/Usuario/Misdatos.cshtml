@@ -1,0 +1,280 @@
+﻿@using WebDalisa.Models
+@{
+    ViewBag.Title = "Misdatos";
+}
+
+@Scripts.Render("~/Content/Index.js")
+
+@{
+    SocioDTO use = null;
+}
+
+@if (Session["use"] != null)
+{
+    use = (SocioDTO)Session["use"];
+
+}
+
+<body id="body" class="bg-fondo">
+
+    <div class="container-fluid bg-fondo">
+        <div class="row">
+            <div class="col-1  col-md-1-1">
+                <div id="nav" class="sidebar close">
+
+                </div>
+            </div>
+            <div class="col-11   col-md-11-1   p-0 ps-4 p-md-0">
+                <section class="home-section">
+                    <div class="container-fluid ">
+                        <div class="row">
+                            <div class="col-12 pb-2 ">
+                                <div style="width: 4%; ">
+                                    <i class=" bx bx-menu" role="button" style="font-size:50px;"></i>
+                                </div>
+                                <div class="col-12 col-md-8 m-auto">
+                                    <form action="ActualizarDatos" method="post">
+                                        <div class="card text-dark bg-light mb-3">
+                                            <div class="card-header text-light " style="background-color: #024959;">DATOS PERSONALES</div>
+                                            <div class="card-body">
+                                                <div class="row g-3 align-items-center">
+                                                    <div class="col-4 col-md-6 text-end ps-5">
+                                                        <label for="inputPassword6" class="col-form-label fs-8 ">
+                                                            <i class="text-danger">*</i>
+                                                            Pais de residencia
+                                                        </label>
+                                                    </div>
+                                                    <input type="hidden" id="inputPassword6" name="idusuario" value="@use.usuario.idUsuario" class="form-control" />
+                                                    <div class="col-8 col-md-6">
+                                                        <div class="col-9 col-md-8">
+                                                            <select name="pais" id="Pais" class="form-select form-select-md "
+                                                                    aria-label=".form-select-lg example">
+                                                                <option th:selected="true" value="-1">-SELECCIONE-</option>
+                                                                <option selected value="@use.usuario.pais">@use.usuario.pais</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4 col-md-6 text-end ps-5 ">
+                                                        <label for="inputPassword6" class="col-form-label fs-8">
+                                                            <i class="text-danger">*</i>
+                                                            Nombre Completo
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-8 col-md-6">
+                                                        <div class="col-9 col-md-8">
+                                                         
+                                                                <input type="text" id="inputPassword6" name="Nombre" value="@use.usuario.nombreUse" class="form-control"
+                                                                       aria-describedby="passwordHelpInline">
+                                                         
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4 col-md-6 text-end ps-5 ">
+                                                        <label for="inputPassword6" class="col-form-label fs-8">
+                                                            <i class="text-danger">*</i>
+                                                            Apellido Completo
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-8 col-md-6">
+                                                        <div class="col-9 col-md-8">
+                                                            <input type="text" id="inputPassword6" name="apellido" value="@use.usuario.apellidoUse" class="form-control"
+                                                                   aria-describedby="passwordHelpInline">
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-12 col-md-6 text-center text-md-end ps-5 ">
+                                                        <label for="inputPassword6" class="col-form-label fs-8">Fecha de Nacimiento</label>
+                                                    </div>
+                                                    <div class="col-12 col-md-6">
+                                                        <div class="col-8 m-auto m-md-3">
+                                                            <div class="row ">
+
+                                                                <input type="datetime" id="inputPassword6" name="fechanaci" value="@use.usuario.fechaNaci" class="form-control"
+                                                                       aria-describedby="passwordHelpInline">
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-4 col-md-6 text-end ps-5 ">
+                                                        <label for="inputPassword6" class="col-form-label fs-8">Estado civil</label>
+                                                    </div>
+                                                    <div class="col-8 col-md-6">
+                                                        <div class="col-9 col-md-8">
+                                                            <select name="estadociv" id="estadoCivil" class="form-select form-select-md "
+                                                                    aria-label=".form-select-lg example">
+                                                                <option selected value="@use.usuario.estadoCivil">@use.usuario.estadoCivil</option>
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4 col-md-6 text-end ps-5 ">
+                                                        <label for="inputPassword6" class="col-form-label fs-8">Sexo</label>
+                                                    </div>
+                                                    <div class="col-8 col-md-6">
+                                                        <div class="col-9 col-md-8">
+                                                            <select name="sexo" id="sexo" class="form-select form-select-md "
+                                                                    aria-label=".form-select-lg example">
+                                                                <option value="@use.usuario.sexo">@use.usuario.sexo</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4 col-md-6 text-md-end ps-4   ">
+                                                        <label for="inputPassword6" class="col-form-label fs-8">
+                                                            <i class="text-danger">*</i>
+                                                            Dni (documento nacional de identidad)
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-8 col-md-6">
+                                                        <div class="col-9 col-md-6">
+                                                            <input name="dni" type="text" id="inputPassword6" value="@use.usuario.dniUse" class="form-control"
+                                                                   aria-describedby="passwordHelpInline">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4 col-md-6 text-end ps-5 ">
+                                                        <label for="inputPassword6" class="col-form-label fs-8">Direccion completa</label>
+                                                    </div>
+                                                    <div class="col-8 col-md-6">
+                                                        <div class="col-9 col-md-6">
+                                                            <input name="direccion" type="text" id="inputDireccion" value="@use.usuario.direccion" class="form-control"
+                                                                   aria-describedby="DirecciondHelpInline">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4 col-md-6  text-end ps-5 ">
+                                                        <label for="inputPassword6" class="col-form-label fs-8">
+                                                            <i class="text-danger">*</i>
+                                                            Celular
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-8 col-md-6">
+                                                        <div class="col-9 col-md-6">
+                                                            <input name="celular" type="text" id="inputCelular" value="@use.usuario.celularUse" class="form-control"
+                                                                   aria-describedby="CelularHelpInline">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4 col-md-6  text-end ps-4 ">
+                                                        <label for="inputPassword6" class="col-form-label fs-8">
+                                                            <i class="text-danger">*</i>
+                                                            Correo electronico
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-8 col-md-6">
+                                                        <div class="col-9 col-md-6">
+                                                            <input name="correo" type="text" id="inputCorreo" value="@use.usuario.correoUse" class="form-control"
+                                                                   aria-describedby="CorreoHelpInline">
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-header text-center text-light rounded " style="background-color: #024959;">
+                                                        INFORMACION BANCARIA PARA PAGO DE COMISIONES
+                                                    </div>
+                                                    <div class="col-4 col-md-6  text-end ps-5 ">
+                                                        <label for="inputPassword6" class="col-form-label fs-8">Nombre del banco</label>
+                                                    </div>
+                                                    <div class="col-8 col-md-6">
+                                                        <div class="col-9 col-md-6">
+                                                            <select name="idbanco" class="form-select form-select-md "
+                                                                    aria-label=".form-select-lg example">
+                                                                <option value="-1">SELECCIONE</option>
+
+                                                                @foreach (var item in (List<BancoDTO>)ViewBag.Banco)
+                                                                {
+
+                                                                    if (use.usuario.banco != null)
+                                                                    {
+                                                                        if (use.usuario.banco.idBanco == item.idBanco)
+                                                                        {
+
+                                                                            <option selected value="@item.idBanco">@item.nombreBanco</option>
+
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <option value="@item.idBanco"> @item.nombreBanco </option>
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <option value="@item.idBanco"> @item.nombreBanco </option>
+                                                                     }
+                                                                    }
+
+                                                                }
+
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4 col-md-6  text-end ps-5 ">
+                                                        <label for="inputPassword6" class="col-form-label fs-8">Tipo de cuenta </label>
+                                                    </div>
+                                                    <div class="col-8 col-md-6">
+                                                        <div class="col-9 col-md-6">
+                                                            <select class="form-select form-select-md "
+                                                                    aria-label=".form-select-lg example">
+                                                                <option value="-1">SELECCIONE</option>
+                                                                @foreach (var item in (List<BancoDTO>)ViewBag.Banco)
+                                                                {
+
+                                                                    if (use.usuario.banco != null)
+                                                                    {
+                                                                        if (use.usuario.banco.idBanco == item.idBanco)
+                                                                        {
+
+                                                                            <option selected value="@item.idBanco">@item.tipoAhorro</option>
+
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <option value="@item.idBanco"> @item.tipoAhorro </option>
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <option value="@item.idBanco"> @item.tipoAhorro </option>
+                                                                    }
+                                                                }
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-md-6  text-md-end ps-5 ">
+                                                        <label for="inputPassword6" class="col-form-label fs-8">
+                                                            Numero de cuenta (la cuenta
+                                                            debe ser en soles, no utilice guiones ni espacios en blanco)
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-12  col-md-6 ">
+                                                        <div class="col-6  m-auto m-md-0">
+                                                            <input name="cuenta" type="text" id="inputNumberCuenta" value="@use.usuario.ctnDeposito" class="form-control"
+                                                                   aria-describedby="NumberCuentaHelpInline">
+                                                        </div>
+                                                    </div>
+                                                </div> <br>
+                                                <div class="card-footer">
+                                                    <div class="float-end">
+                                                        <button class="btn btn-secondary " type="submit" role="button">Guardar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="subir">
+                        <span>
+                            <i class='bx bxs-to-top'></i>
+                        </span>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#nav").load("http://localhost:64395/Usuario/Menu");
+        });
+    </script>
+</body>
+

@@ -1,0 +1,319 @@
+﻿@model WebDalisa.Models.ProductoDTO
+@using WebDalisa.Models
+<style>
+    .thumb {
+        width: 200px;
+        height: 200px;
+        border: 1px solid #000;
+        margin: 10px 5px 0 0;
+    }
+
+    .inputfile-1 + label {
+        color: #fff;
+        background-color: #c39f77;
+    }
+
+    /**********File Inputs**********/
+
+    .inputfile {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+
+        .inputfile + label {
+            max-width: 80%;
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            cursor: pointer;
+            display: inline-block;
+            overflow: hidden;
+            padding: 0.625rem 1.25rem;
+        }
+
+            .inputfile + label svg {
+                width: 1em;
+                height: 1em;
+                vertical-align: middle;
+                fill: currentColor;
+                margin-top: -0.25em;
+                margin-right: 0.25em;
+            }
+
+    .iborrainputfile {
+        font-size: 16px;
+        font-weight: normal;
+        font-family: 'Lato';
+    }
+
+    .inputfile-1:focus + label,
+    .inputfile-1.has-focus + label,
+    .inputfile-1 + label:hover {
+        background-color: #9f8465;
+    }
+
+
+    .titulo {
+        text-align: center;
+        color: white;
+        font-size: 5em;
+        transition: 0.5s;
+        color: rgb(20, 125, 196);
+        font-family: 'Oswald', sans-serif;
+        text-shadow: 0 1px 0 #ccc, 0 2px 0 #ccc, 0 3px 0 #ccc, 0 4px 0 #ccc, 0 5px 0 #ccc, 0 6px 0 #ccc, 0 7px 0 #ccc, 0 8px 0 #ccc, 0 9px 0 #ccc, 0 10px 0 #ccc, 0 11px 0 #ccc, 0 12px 0 #ccc, 0 20px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .btn1 {
+        position: relative;
+        display: block;
+        border-radius: 6px;
+        text-align: center;
+        font-weight: bold;
+        width: 150px;
+        height: 65px;
+        overflow: hidden;
+        cursor: pointer;
+        letter-spacing: 2px;
+        box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.1);
+        text-decoration: none;
+        transition: all ease 0.5s;
+        background: rgb(20, 125, 196);
+    }
+
+        .btn1:after,
+        .btn1:before {
+            width: 80px;
+            height: 200px;
+            content: '';
+            display: block;
+            background: rgba(255, 255, 255, 0.5);
+            transform: rotate(45deg);
+            top: -60px;
+            position: absolute;
+            transition: none;
+            right: -45%;
+            cursor: pointer;
+        }
+
+        .btn1:before {
+            left: -48%;
+        }
+
+        .btn1:hover {
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+            background: rgb(20, 125, 196);
+        }
+
+            .btn1:hover:after,
+            .btn1:hover:before {
+                transform: rotate(45deg), scaleX(130%);
+                background: rgba(255, 255, 255, 0.1);
+                transition: all ease 0.5s;
+            }
+
+            .btn1:hover:after {
+                right: 130%;
+            }
+
+            .btn1:hover:before {
+                left: 130%;
+            }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@Scripts.Render("~/Content/Index.js")
+
+<body id="body" class="bg-fondo">
+    <div class="container-fluid bg-fondo">
+        <div class="row">
+            <div class="col-1  col-md-1-1">
+                <div id="nav" class="sidebar close">
+                </div>
+            </div>
+            <div class="col-11   col-md-11-1  ps-5 ps-md-0">
+                <section class="home-section">
+                    <div class="container-fluid ">
+                        <div class="col-12 pb-2 ">
+                            <div style="width: 4%; ">
+                                <i class=" bx bx-menu" role="button" style="font-size:50px;"></i>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-8-m-auto">
+
+                                @using (Html.BeginForm("ModificarProducto", "Producto", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+
+                                    @Html.AntiForgeryToken()
+
+
+                                    <div class="col-11 col-lg-6 m-auto shadow-lg p-3 mb-5 bg-body rounded">
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+
+
+                                                    @Html.EditorFor(model => model.codigoProducto, new { htmlAttributes = new { @class = "form-control" } })
+
+                                                    <label for="floatingInputcodigo">CODIGO</label>
+                                                </div>
+                                                <br>
+                                                <div class="form-floating ">
+
+
+                                                    @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control" } })
+
+
+                                                    <label for="floatingInputNombre">NOMBRE</label>
+
+                                                </div> <br>
+                                                       <div class="form-floating">
+                                                           <select name="cate" class="form-select"
+                                                                   id="floatingSelectCategoria" aria-label="Floating label select example">
+                                                               <option selected>SELECCIONE</option>
+
+                                                               @foreach (CategoriaDTO item in (List<CategoriaDTO>)ViewBag.Categoria)
+                                                               {
+                                                                   string cod = (string)ViewBag.CodCate;
+                                                                   if (item.codigoCategoria == cod)
+                                                                   {
+                                                                       <option selected="selected" value="@item.codigoCategoria">@item.nomCategoria</option>
+                                                                   }
+                                                                   else
+                                                                   {
+                                                                       <option value="@item.codigoCategoria">@item.nomCategoria</option>
+                                                                   }
+
+                                                               }
+
+                                                           </select>      <label for="floatingSelectCategoria">CATGEORIA</label>
+                                                       </div>
+                                          
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="w-75 m-auto">
+                                                    <output id="list">
+                                                        <img src="~/img/@Model.foto" class="thumb" alt="@Model.foto">
+                                                    </output>
+
+                                                </div>
+                                                <div class="w-75 m-auto ">
+                                                    <!--ESTILO 1-->
+                                                    <div class="container-input">
+                                                        <input type="file" name="file" id="file-1"
+                                                               class="inputfile inputfile-1"
+                                                               data-multiple-caption="{count} archivos seleccionados"
+                                                               multiple />
+                                                        <label for="file-1">
+                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                 class="iborrainputfile" width="20" height="17"
+                                                                 viewBox="0 0 20 17">
+                                                                <path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z">
+                                                                </path>
+                                                            </svg>
+                                                            <span class="iborrainputfile">Seleccionar archivo</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-floating">
+
+
+                                                    @Html.EditorFor(model => model.descripcion, new { htmlAttributes = new { @class = "form-control" } })
+
+
+                                                    <label for="floatingTextareaDescripcion">DESCRIPCION</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 ">
+                                                <div class="input-group">
+                                                    <span class="input-group-text">S/.</span>
+                                                    <div class="col-md-7">
+                                                        <div class="form-floating ">
+
+
+                                                            @Html.EditorFor(model => model.precio, new { htmlAttributes = new { @class = "form-control" } })
+
+
+                                                            <label for="floatingInputPrecio">Precio</label>
+                                                        </div>
+                                                    </div>
+                                                    <span class="input-group-text">.00</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-3">
+                                                <div class="form-floating ">
+
+
+                                                    @Html.EditorFor(model => model.cantidad, new { htmlAttributes = new { @class = "form-control" } })
+
+
+                                                    <label for="floatingInputCantidad">Cantidad</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-3">
+                                                <div class="form-floating ">
+
+
+                                                    @Html.EditorFor(model => model.punto, new { htmlAttributes = new { @class = "form-control" } })
+
+
+                                                    <label for="floatingInputPunto">Punto</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-3  m-auto pt-4">
+                                                <button id="" type="submit"
+                                                        class=" btn1  text-light">
+                                                    AGREGAR
+                                                </button>
+                                            </div>
+                                        </div>
+                                   
+                                    </div>    
+                                    }
+                                </div>
+
+
+
+                                </div>
+
+
+                        <div class="subir">
+                            <span>
+                                <i class='bx bxs-to-top'></i>
+                            </span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <script>
+        $(document).ready(function () {
+            $("#nav").load("http://localhost:64395/Usuario/Menu");
+        });
+    </script>
+</body>

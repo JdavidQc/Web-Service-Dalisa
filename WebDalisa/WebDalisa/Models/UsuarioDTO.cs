@@ -25,7 +25,7 @@ namespace WebDalisa.Models
         public string pass { get; set; }
         public string ctnDeposito { get; set; }
         public BancoDTO banco { get; set; }
-        public byte[] fotoUSE { get; set; }
+        public string fotoUSE { get; set; }
         public string fechaRegistro { get; set; }
         public string eliminado { get; set; }
     }

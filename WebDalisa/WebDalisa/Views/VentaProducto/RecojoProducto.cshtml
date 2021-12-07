@@ -1,0 +1,109 @@
+﻿@using WebDalisa.Models
+
+
+<body id="body" class="bg-fondo">
+
+    <div class="container-fluid bg-fondo">
+        <div class="row">
+            <div class="col-1  col-md-1-1">
+                <div id="nav" class="sidebar close" th:include="Menu :: menuPrincipal">
+                </div>
+            </div>
+            <div class="col-11   col-md-11-1 p-0 ps-3">
+                <section class="home-section">
+                    <div class="container-fluid">
+                        <div class="col-12 pb-2 ">
+                            <div style="width: 4%; ">
+                                <i class=" bx bx-menu" role="button" style="font-size:50px;"></i>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 p-1 pb-3">
+                                <h1 class="text-center titulo">RECOJO DE PRODUCTO EN TIENDA</h1>
+                            </div>
+                            <div class="col-12">
+                                <table class="table table-striped w-100" id="myTable">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th scope="col">ID</th>
+                                            <th scope="col">FECHA PEDIDO</th>
+                                            <th scope="col">PERIODO CLAVE</th>
+                                            <th scope="col">PUNTOS</th>
+                                            <th scope="col">IMPORTE PAGAR</th>
+                                            <th scope="col">Opciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in (List<CabeceraBoletaDTO>)ViewBag.listadoCabcera)
+                                        {
+                                            if (item.estado.Equals("PENDIENTE") && item.nomRepartidor.Equals("DALISA EMPRESA"))
+                                            {
+
+                                                <tr class="text-center">
+                                                    <th scope="row">@item.nBoleta</th>
+                                                    <td>@item.fechaPedido</td>
+                                                    <td>@item.estado</td>
+                                                    <td>@item.total_Punto</td>
+                                                    <td>@item.impotTotal</td>
+                                                    <td>
+                                                        <!-- Button trigger modal -->
+                                                        <button type="button" onclick="dettalle('@item.nBoleta')" class="btn btn-warning">
+                                                            DETALLE
+                                                        </button>
+                                                    <form class="p-0" action="transacionBoleta" method="post">
+                                                        <input type="hidden" name="nboleta" value="@item.nBoleta">
+                                                        <input type="hidden" name="opc" value="F">
+                                                        <button type="submit" onclick="return confirm('Finalizar Entrega?')" class="btn text-light" style="background:rgb(170, 161, 80)">Realizar Entrega</button>
+                                                    </form>
+                                                    </td>
+                                                </tr>
+                                            }
+
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="staticBackdrop2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalToggleLabel">DELLATE DE PRODUCTO </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table text-secondary">
+                        <thead>
+                            <tr class="table-success ">
+                                <th class="col-2 ">#</th>
+                                <th class="col-3">PRECIO</th>
+                                <th class="col-2 ">PRECIO</th>
+                                <th class="col-2">CANTIDAD</th>
+                                <th class="col-2 ">TOTAL</th>
+                            </tr>
+                        </thead>
+                        <tbody id="detalle">
+                            <tr>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#nav").load("http://localhost:64395/Usuario/Menu");
+        });
+        function dettalle(nBoleta) {
+
+        }
+    </script>
+</body>

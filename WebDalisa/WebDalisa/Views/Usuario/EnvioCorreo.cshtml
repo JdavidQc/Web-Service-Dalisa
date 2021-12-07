@@ -1,0 +1,142 @@
+﻿
+
+<style>
+    body {
+        height: 100vh;
+        background-color: #707e97;
+        background: -webkit-linear-gradient(#707e97, #ffff00b9);
+        background: -o-linear-gradient(#707e97, #ffff00b9);
+        background: -moz-linear-gradient(#707e97, #ffff00b9);
+        background: linear-gradient(#707e97, #ffff00b9);
+    }
+
+    h1 {
+        font-family: "Pacifico", cursive;
+        color: gray;
+    }
+
+    #email {
+        color: rgb(133, 133, 133);
+        text-decoration: none;
+    }
+
+        #email:hover {
+            color: #000000;
+        }
+</style>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<body>
+    <div class="container-fluid">
+        <br />
+        <br />
+        <div class="card m-auto " style="width: 25rem;">
+            <div class="rounded-top " style="background: #206f7b; padding: 12px">
+                <h6 class="text-center text-light">RECUPERAR CONTRASENA</h6>
+            </div>
+            <div class="card-body w-100 m-auto">
+                <br>
+                <h1 class="card-title pb-4 text-center">
+                    D A L I S A
+                </h1><br>
+                <div class="row">
+                    <div class="col-12">
+                        <p class="text-center">
+                            Para recuperar tu contrasena solo propociona el eMail con el que te registraste, en un
+                            par de minutos recibiras un correo con tu contrasena
+                        </p>
+                    </div>
+                    <div class="col-10  m-auto">
+                        <p class="text-center">Tu Correo Electronico</p>
+
+                        <input type="email" class="form-control" id="exampleInputCorreo" />
+
+                    </div>
+                </div>
+                <br />
+                <div class="d-grid gap-2 col-8 m-auto ps-4">
+                    <button id="enviar" type="submit" style="background: #206f7b; border-color: #206f7b" class="btn btn-primary"
+                            th:text="Enviar">
+                        Enviar
+                    </button>
+                    <a id="retroceder" href="http://localhost:64395/Usuario/Login" style="background: #206f7b; border-color: #206f7b" class="btn btn-primary">
+                        Regresar
+                    </a>
+                </div>
+
+
+            </div>
+            <div id="spinner" class="d-flex justify-content-end pe-2 pb-2 d-none" style="color: #206f7b">
+                <div class="spinner-border " role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            <div style="background: #e5e5e5">
+                <p class="pt-3 pe-3" style="text-align: right; color: #b3b0b0">
+                    Operated by Netzen
+                </p>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+
+
+<script>
+    $(document).ready(function () {
+        $("#enviar").click(function () {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 1000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    $("#enviar").attr('disabled', 'disabled');
+                    $("#retroceder").attr('disabled', 'disabled');
+                }
+            })
+            $.ajax({
+                 url: '@Url.Content("~/Usuario/RealizarEnvio")',
+                type: 'POST',
+                data: { 'correo':  $("#exampleInputCorreo").val()  },
+                dataType: "json",
+                beforeSend: function () {
+                    $("#enviar").attr('disabled', 'disabled');
+                    $("#retroceder").attr('disabled', 'disabled');
+                    $("#spinner").removeClass("d-none");
+                },
+                success: function (json) {
+                    $("#spinner").addClass("d-none");
+                    if (json == "true") {
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Se Envio Correctamente'
+
+                        }).then((result) => {
+                            location.href = "http://localhost:64395/Usuario/Login";
+                        });
+                    } else {
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Error al Enviar Correo o <br> No Existe Correo'
+                        }).then((result) => {
+                            location.reload();
+                        });
+                    }
+                },
+                error: function (xhr, status) {
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Error al Enviar Correo'
+                    }).then((result) => {
+                        location.reload();
+                    });
+                }
+            });
+        });
+    });
+
+</script>

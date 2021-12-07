@@ -1,0 +1,81 @@
+﻿@model IEnumerable<WebDalisa.Models.MovimientoDTO>
+
+<body id="body" class="bg-fondo">
+
+    <div class="container-fluid bg-fondo">
+        <div class="row">
+            <div class="col-1  col-md-1-1">
+                <div id="nav" class="sidebar close" th:include="Menu :: menuPrincipal">
+                </div>
+            </div>
+            <div class="col-11   col-md-11-1 p-0 ps-3">
+                <section class="home-section">
+                    <div class="container-fluid">
+                        <div class="col-12 pb-2 ">
+                            <div style="width: 4%; ">
+                                <i class=" bx bx-menu" role="button" style="font-size:50px;"></i>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 p-1 pb-3">
+                                <h1 class="text-center titulo">MOVIMIENTO DE SOCIO</h1>
+                            </div>
+
+                            <div class="col-12">
+                                <table class="table table-striped w-100" id="myTable">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th scope="col">#</th>
+                                            <th scope="col">Socio Remitente</th>
+                                            <th scope="col">Socio Resector</th>
+                                            <th scope="col">Monto Tranferido</th>
+                                            <th scope="col">Fecha Movimiento </th>
+                                            <th scope="col">Decrpicion</th>
+                                            <th scope="col">Estado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr class="text-center">
+                                                <td>
+                                                    'M000'   @Html.DisplayFor(modelItem => item.codigoMovimiento)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.idSocioEnvio.usuario.nombreUse)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.idSocioRecibo.usuario.nombreUse)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.monto_transferencia)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.fecha_movimiento)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.descrip)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.estado)
+                                                </td>
+
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $("#nav").load("http://localhost:64395/Usuario/Menu");
+        });
+
+    </script>
+</body>

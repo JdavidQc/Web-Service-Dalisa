@@ -1,0 +1,143 @@
+﻿@using WebDalisa.Models
+@Scripts.Render("~/Content/Index.js")
+<body id="body" class="bg-fondo">
+
+    <div class="container-fluid bg-fondo">
+        <div class="row">
+            <div class="col-1  col-md-1-1">
+                <div id="nav" class="sidebar close">
+
+                </div>
+            </div>
+            <div class="col-11   col-md-11-1 p-0 ps-3">
+                <section class="home-section">
+                    <div class="container-fluid ">
+                        <div class="row">
+                            <div class="col-12 pb-2 ">
+                                <div style="width: 4%; ">
+                                    <i class=" bx bx-menu" role="button" style="font-size:50px;"></i>
+                                </div>
+                                <div class="col-10 m-auto">
+                                    <form action="RealizarMovimientoSocio" method="post">
+                                        <div class="card text-dark bg-light mb-3">
+                                            <div class="card-header text-light" style="background-color: #024959;">
+                                                TRANSFERIR DE SU
+                                                MONEDERO A OTRO MONEDERO
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row p-1">
+                                                    <div class="col-12">
+                                                        <div class="row">
+                                                            <div class="col-12 ">
+                                                                <div class="row  ">
+                                                                    <div class="col-6 col-md-5 text-end ps-5  ">
+                                                                        <label for="inputPassword6" class="col-form-label fs-8">
+                                                                            Total disponible
+                                                                        </label>
+                                                                    </div>
+                                                                    @{
+                                                                        SocioDTO use = null;
+                                                                    }
+
+                                                                    @if (Session["use"] != null)
+                                                                    {
+                                                                        use = (SocioDTO)Session["use"];
+
+                                                                    }
+
+                                                                    <div class="col-6 col-md-7 pt-2 ">
+                                                                        <span type="password">@Decimal.Parse(use.puntoBono + ".00")</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12 ">
+                                                                <div class="row">
+                                                                    <div class="col-6 col-md-5 text-end ps-5 ">
+                                                                        <label for="inputPassword6" class="col-form-label fs-8">
+                                                                            Comision por traspaso
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-6 col-md-7 pt-2 ">
+                                                                        <span type="password">1.00</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row p-1">
+                                                            <div class="col-12 ">
+                                                                <div class="row">
+                                                                    <div class="col-6 col-md-5  text-end ps-5 ">
+                                                                        <label for="inputPassword6" class="col-form-label fs-8">
+                                                                            DNI DEL SOCIO
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-6 col-md-3">
+                                                                        <input type="text" name="dni"
+                                                                               class="form-control  "
+                                                                               aria-describedby="passwordNuevoHelpInline">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row p-1">
+                                                            <div class="col-12 ">
+                                                                <div class="row">
+                                                                    <div class="col-6 col-md-5 text-end  ps-5 ">
+                                                                        <label for="inputPassword6" class="col-form-label fs-8">
+                                                                            Importe a transferir
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-6 col-md-5">
+                                                                        <input type="text" value="0" name="sole" class="form-control"
+                                                                               aria-describedby="passwordNuevoHelpInline">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row p-1">
+                                                            <div class="col-12 ">
+                                                                <div class="row">
+                                                                    <div class="col-6 col-md-5 text-end ps-5 ">
+                                                                        <label for="inputPassword6" class="col-form-label fs-8">
+                                                                            Motivo de la transferencia
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-6 col-md-7">
+                                                                        <input type="text" name="decrip"
+                                                                               class="form-control  "
+                                                                               aria-describedby="passwordNuevoHelpInline">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="card-footer">
+                                                <div class="float-end">
+                                                    <button type="submit" class="btn btn-secondary " role="button">Tranferir Bono</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#nav").load("http://localhost:64395/Usuario/Menu");
+        });
+
+    </script>
+</body>
